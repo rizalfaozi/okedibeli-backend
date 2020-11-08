@@ -1,0 +1,250 @@
+.ws-clearfix { clear:both; }
+.ws-info a{ color:#ffffff; }
+.ws-button a{ color:#ffffff; }
+
+.ws-loading{
+    background: url(/images/loading-ss.gif) 50%;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-color: #eeeeeecf;
+    height: 68vh;
+    margin-left: -5px;
+    margin: auto;
+    position: absolute;
+    top: 120px;
+    width: 96%;
+    z-index: 999;
+}
+
+.ws-size-font{ font-size: 20px; }
+
+.ws-pl25{ padding-left: 25px !important; }
+
+.ws-pr25{ padding-right: 25px !important; }
+
+table tr td { word-break: break-word; }
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 2px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > button,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 5px 10px;
+  line-height: 1.54;
+  text-decoration: none;
+  color: #03a9f4;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  margin-left: -1px;
+}
+.pagination > li:first-child > button,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.pagination > li:last-child > button,
+.pagination > li:last-child > span {
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+}
+.pagination > li > button:hover,
+.pagination > li > span:hover,
+.pagination > li > button:focus,
+.pagination > li > span:focus {
+  color: #03a9f4;
+  background-color: #cfd8dc;
+  border-color: #dddddd;
+}
+.pagination > .active > button,
+.pagination > .active > span,
+.pagination > .active > button:hover,
+.pagination > .active > span:hover,
+.pagination > .active > button:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #ffffff;
+  background-color: #03a9f4;
+  border-color: #03a9f4;
+  cursor: default;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > button,
+.pagination > .disabled > button:hover,
+.pagination > .disabled > button:focus {
+  color: #90a4ae;
+  background-color: #ffffff;
+  border-color: #dddddd;
+  cursor: not-allowed;
+}
+.pagination-lg > li > button,
+.pagination-lg > li > span {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+.pagination-lg > li:first-child > button,
+.pagination-lg > li:first-child > span {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.pagination-lg > li:last-child > button,
+.pagination-lg > li:last-child > span {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.pagination-sm > li > button,
+.pagination-sm > li > span {
+  padding: 4px 12px;
+  font-size: 11px;
+}
+.pagination-sm > li:first-child > button,
+.pagination-sm > li:first-child > span {
+  border-bottom-left-radius: 1px;
+  border-top-left-radius: 1px;
+}
+.pagination-sm > li:last-child > button,
+.pagination-sm > li:last-child > span {
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+/* The container */
+.container-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container-radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark-checkbox {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #c41411;
+  border-radius: 6px;
+}
+
+.checkmark-radio {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #c41411;
+  border-radius: 12px;
+}
+
+/* On mouse-over, add a grey background color */
+.container-checkbox:hover input ~ .checkmark-checkbox {
+  background-color: #ccc;
+}
+
+.container-radio:hover input ~ .checkmark-radio {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked ~ .checkmark-checkbox {
+  background-color: #558b2f;
+}
+
+.container-radio input:checked ~ .checkmark-radio {
+  background-color: #558b2f;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark-checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkmark-radio:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked ~ .checkmark-checkbox:after {
+  display: block;
+}
+
+.container-radio input:checked ~ .checkmark-radio:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark-checkbox:after {
+  left: 7px;
+  top: 3px;
+  width: 10px;
+  height: 15px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.container-radio .checkmark-radio:after {
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
