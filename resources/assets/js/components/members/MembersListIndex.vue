@@ -1,13 +1,15 @@
 <template>
 		<tr>
 			<td data-title="No">{{ data.number }}</td>
-		    <td data-title="Username">
-		    	<span><i v-if="data.gender === 'Female'" class="fa fa-female text-success ws-size-font"></i><i v-if="data.gender === 'Male'" class="fa fa-male text-success ws-size-font"></i>&nbsp;&nbsp;{{ data.username }}</span>
+		    <td data-title="Name">
+		    	<span>{{ data.name }}</span>
 		    </td>
-		    <td data-title="Email">{{ data.email }}</td>
-		    <td data-title="Fullname">{{ data.fullname }}</td>
+            <td data-title="Phone">
+                <span>{{ data.phone }}</span>
+            </td>
+		   
             <td data-title="Status" class="text-center">
-                <span class="fa-stack fa-lg" v-if="data.status === 'Y'"><i class="fa fa-circle-o fa-stack-2x text-success"></i><i class="fa fa-check fa-stack-1x fa-inverse text-success"></i></span><span class="fa-stack fa-lg" v-if="data.status === 'N'"><i class="fa fa-times-circle-o fa-stack-2x text-danger"></i></span>
+                {{ data.status }}
             </td>
                 
 

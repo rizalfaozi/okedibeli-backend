@@ -3,14 +3,15 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AppBaseController;
 use JWTAuth;
 use App\Models\User;
 use JWTAuthException;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\MemberRepository;
-use App\Http\Requests\CreateMemberRequest;
-use App\Http\Requests\UpdateMemberRequest;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\UserRepository;
+
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,37 +19,24 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 use App\Helpers\GeneralHelpers;
 
-class MemberController extends Controller
+class MemberController extends AppBaseController
 {   
-    private $memberRepository;
-    public function __construct(MemberRepository $memberRepo)
+    private $userRepository;
+    public function __construct(UserRepository $userRepo)
     {
-        $this->memberRepository = $memberRepo;
+        $this->userRepository = $userRepo;
         $this->Cfg = config();
         $this->perPage = $this->Cfg['general']['limitData'];
         
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password', 'username');
-
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-
-        return response()->json(compact('token'));
-    }
+   
 
     public function active($id='', $active='N')
     {
         
         $dataPost['status'] = $active;
-        $__temp_ = $this->memberRepository->update($dataPost, $id);
+        $__temp_ = $this->userRepository->update($dataPost, $id);
         
         $results['data'] = $__temp_;
         return response()->json($results);
@@ -56,9 +44,9 @@ class MemberController extends Controller
 
     public function lists(Request $request)
     {
-        $type ='member';
-        $this->memberRepository->pushCriteria(new RequestCriteria($request));
-        $_tempResult = $this->memberRepository->getWithLimit($this->perPage,$type);
+        $type ='admin';
+        $this->userRepository->pushCriteria(new RequestCriteria($request));
+        $_tempResult = $this->userRepository->getWithLimit($this->perPage,$type);
         $results = $this->__build($_tempResult, $request);
         return response()->json($results);
     }
@@ -66,8 +54,8 @@ class MemberController extends Controller
     public function search(Request $request)
     {
         
-        $this->memberRepository->pushCriteria(new RequestCriteria($request));
-        $_tempResult = $this->memberRepository->getSearch($request->all(), $this->perPage);
+        $this->userRepository->pushCriteria(new RequestCriteria($request));
+        $_tempResult = $this->userRepository->getSearch($request->all(), $this->perPage);
         $results = $this->__build($_tempResult, $request);
         return response()->json($results);
     }
@@ -76,7 +64,6 @@ class MemberController extends Controller
     function __build($data, $request){
 
         $__temp_ = array();
-
         $getRequest = $request->all();
         
         $page = isset($getRequest['page']) ? $getRequest['page'] : 1;
@@ -85,19 +72,11 @@ class MemberController extends Controller
         foreach ($data as $key => $val) {
             $__temp_[$key]['number'] = $numberNext++;
             $__temp_[$key]['id'] = $val['id'];
-            $__temp_[$key]['username'] = $val['username'];
-            $__temp_[$key]['fullname'] = $val['fullname'];
-            $__temp_[$key]['email'] = $val['email'];
+            $__temp_[$key]['name'] = $val['name'];
             $__temp_[$key]['phone'] = $val['phone'];
-            $__temp_[$key]['facebook'] = $val['facebook'];
-            $__temp_[$key]['instagram'] = $val['instagram'];
-          
-
-            
-            $__temp_[$key]['status'] = $val['status'];
-            $__temp_[$key]['photo'] = !empty($val['photo']) ? $this->Cfg['app']['mediaUrl'].'/users/'.$val['photo'] : $this->Cfg['app']['mediaUrl'].'/users/default-user.png';
-          
-
+            $__temp_[$key]['address'] = $val['address'];
+            if($val['status'] ==1){ $status ="Aktif"; }else{ $status ="Non Aktif";}
+            $__temp_[$key]['status'] = $status;
             $created_at = (string) $val['created_at'];
             $__temp_[$key]['created_at'] = GeneralHelpers::tanggal_indo($created_at);
         }
@@ -113,35 +92,20 @@ class MemberController extends Controller
 
     }
 
-    public function post(CreateMemberRequest $request)
+    public function postUser(CreateUserRequest $request)
     {
 
         $fields = [
-            'office_name'     => 'Office Name',
-            'email'     => 'Email',
-            'username'  => 'Username',
-            'fullname'  => 'Fullname',
-            'address'  => 'Address',
-            'domain'  => 'Domain',
-            'packet'  => 'packet',
-            'date_start'  => 'Date Start',
-            'date_end'  => 'Date End',
+          
+           
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'username'  => 'Username',
+            'name'  => 'Name',
 
         ];
 
         $validator =  Validator::make($request->all(), [
-            'office_name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'username' => 'required|max:8|min:4|unique:users',
-            'fullname' => 'required|max:255',
-            'address' => 'required|max:255',
-            'domain' => 'required|max:255',
-            'packet' => 'required|max:255',
-            'date_start' => 'required|max:255',
-            'date_end' => 'required|max:255',
+            'name' => 'required|max:8|min:4|unique:users',
             'password' => 'required|max:8|min:4|confirmed',
             'password_confirmation' => 'required|max:8|min:4|same:password',
         ]);
@@ -151,40 +115,9 @@ class MemberController extends Controller
             
             $errors = $validator->errors();
             
-            if($errors->has('email')){
-                $err['messages']['email'] = $errors->first('email');
-            }
-
-              if($errors->has('office_name')){
-                $err['messages']['office_name'] = $errors->first('office_name');
-            }
-
-            if($errors->has('username')){
-                $err['messages']['username'] = $errors->first('username');
-            }
-
-             if($errors->has('fullname')){
-                $err['messages']['fullname'] = $errors->first('fullname');
-            }
-
-            if($errors->has('address')){
-                $err['messages']['address'] = $errors->first('address');
-            }
-
-            if($errors->has('domain')){
-                $err['messages']['domain'] = $errors->first('domain');
-            }
-
-            if($errors->has('packet')){
-                $err['messages']['packet'] = $errors->first('packet');
-            }
-
-             if($errors->has('date_start')){
-                $err['messages']['date_start'] = $errors->first('date_start');
-            }
-
-             if($errors->has('date_end')){
-                $err['messages']['date_end'] = $errors->first('date_end');
+          
+            if($errors->has('name')){
+                $err['messages']['name'] = $errors->first('name');
             }
 
             if($errors->has('password')){
@@ -200,82 +133,53 @@ class MemberController extends Controller
         }
 
         $data = [
-            'office_name' => $request['office_name'],
-            'email' => $request['email'],
-            'username' => trim($request['username']),
-            'fullname' => $request['fullname'],
-            'address' => $request['address'],
-            'domain' => $request['domain'],
-            'packet' => $request['packet'],
-            'date_start' => $request['date_start'],
-            'date_end' => $request['date_end'], 
-            'type' => 'member',
+           
+            'name' => trim($request['name']),
             'password' => Hash::make(trim($request['password'])),
-            'status' => ($request['status'] == 1) ? 'Y' : 'N',
+            'status' => ($request['status'] == 1) ? 1 : 0,
         ];  
 
         // return response()->json(['id'=>1]);
-        $save = $this->memberRepository->create($data);
+        $save = $this->userRepository->create($data);
         if($save->id){
             return response()->json(['id'=>$save->id]);
         }   
 
     }
 
-    public function edit($id)
+    public function editUser($id)
     {
         $checked = "";
         $results = array();
-        $user = $this->memberRepository->findWithoutFail($id);
+        $user = $this->userRepository->findWithoutFail($id);
         if(empty($user)){
             return response()->json(['messages' => false]);
         }
 
         $results['id'] = $user->id;
-        $results['username'] = $user['username'];
-        $results['fullname'] = $user['fullname'];
-        $results['email'] = $user['email'];
-        $results['office_name'] = $user['office_name'];
-        $results['address'] = $user['address'];
-        $results['packet'] = $user['packet'];
-        $results['domain'] = $user['domain'];
-        $results['date_start'] = $user['date_start'];
-        $results['date_end'] = $user['date_end'];
+        $results['name'] = $user['name'];
+    
         $results['status'] = $user['status'];
        
         return response()->json($results);
 
     }
 
-    public function update($id, UpdateMemberRequest $request){
+    public function updateUser($id, UpdateUserRequest $request){
         
         $err = array();
         $fields = [
-            'office_name'     => 'Office Name',
-            'email'     => 'Email',
-            'username'  => 'Username',
-            'fullname'  => 'Fullname',
-            'address'  => 'Address',
-            'domain'  => 'Domain',
-            'packet'  => 'packet',
-            'date_start'  => 'Date Start',
-            'date_end'  => 'Date End',
+           
+        
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'username'  => 'Username',
+            'name'  => 'Name',
 
         ];
 
-      $validator =  Validator::make($request->all(), [
-            'office_name' =>'required|max:255',
-            'email' => 'required|email|max:255',
-            'fullname' => 'required|max:255',
-            'username' => 'required|max:8|min:4',
-            'address' =>'required|max:255',
-            'domain'  => 'required|max:255',
-            'packet'  => 'required|max:255',
-            'date_start'  => 'required|max:255',
-            'date_end'  => 'required|max:255',
+        $validator =  Validator::make($request->all(), [
+            
+            'name' => 'required|max:8|min:4',
             'password' => 'nullable|max:8|min:4|confirmed',
             'password_confirmation' => 'nullable|max:8|min:4|same:password',
         ]);
@@ -285,41 +189,12 @@ class MemberController extends Controller
             
             $errors = $validator->errors();
             
-            if($errors->has('email')  && !empty($request->has('email'))){
-                $err['messages']['email'] = $errors->first('email');
+           
+            if($errors->has('name')){
+                $err['messages']['name'] = $errors->first('name');
             }
 
-              if($errors->has('office_name')){
-                $err['messages']['office_name'] = $errors->first('office_name');
-            }
-
-            if($errors->has('username')  && !empty($request->has('username'))){
-                $err['messages']['username'] = $errors->first('username');
-            }
-
-             if($errors->has('fullname')){
-                $err['messages']['fullname'] = $errors->first('fullname');
-            }
-
-            if($errors->has('address')){
-                $err['messages']['address'] = $errors->first('address');
-            }
-
-            if($errors->has('domain')){
-                $err['messages']['domain'] = $errors->first('domain');
-            }
-
-            if($errors->has('packet')){
-                $err['messages']['packet'] = $errors->first('packet');
-            }
-
-             if($errors->has('date_start')){
-                $err['messages']['date_start'] = $errors->first('date_start');
-            }
-
-             if($errors->has('date_end')){
-                $err['messages']['date_end'] = $errors->first('date_end');
-            }
+          
 
             if($errors->has('password') && !empty($request->has('password')) ){
                 $err['messages']['password'] = $errors->first('password');
@@ -332,32 +207,19 @@ class MemberController extends Controller
             return response()->json($err);
 
         }
-
-       
         $pass = array();
         if($request->has('password') && !empty($request->has('password'))){
             $pass = ['password' => Hash::make(trim($request['password']))];
         }
 
-        
-
         $data = [
-            'office_name' => $request['office_name'],
-            'email' => $request['email'],
-            'fullname' => $request['fullname'],
-            'username' => trim($request['username']),
-            'address' => $request['address'],
-            'domain' => $request['domain'],
-            'packet' => $request['packet'],
-            'date_start' => $request['date_start'],
-            'date_end' => $request['date_end'], 
-            'type' => 'member',
+      
+            'name' => trim($request['name']),
             'status' => ($request['status'] == 1) ? 'Y' : 'N',
         ];  
 
         $data = array_merge($pass,$data);
-
-        $save = $this->memberRepository->update($data, $id);
+        $save = $this->userRepository->update($data, $id);
         if($save->id){
             return response()->json(['id'=>$save->id]);
         }   
@@ -365,21 +227,20 @@ class MemberController extends Controller
 
     }
 
-    public function delete($id)
+    public function deleteUser($id)
     {
         $messages['messages'] = false;
-        $user = $this->memberRepository->findWithoutFail($id);
+        $user = $this->userRepository->findWithoutFail($id);
         if(empty($user)){
             return response()->json(['messages' => false]);
         }
 
-        $results = $this->memberRepository->delete($id);
+        $results = $this->userRepository->delete($id);
         if($results){
             $messages['messages'] = true;
         }
         return response()->json($messages);
     }
-
 
     
 }  

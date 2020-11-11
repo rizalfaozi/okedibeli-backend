@@ -30,20 +30,7 @@ class UserController extends AppBaseController
         
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('username', 'password');
-
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-
-        return response()->json(compact('token'));
-    }
+   
 
     public function active($id='', $active='N')
     {
@@ -85,10 +72,10 @@ class UserController extends AppBaseController
         foreach ($data as $key => $val) {
             $__temp_[$key]['number'] = $numberNext++;
             $__temp_[$key]['id'] = $val['id'];
-            $__temp_[$key]['username'] = $val['username'];
-            $__temp_[$key]['fullname'] = $val['fullname'];
-            $__temp_[$key]['email'] = $val['email'];
-            $__temp_[$key]['status'] = $val['status'];
+            $__temp_[$key]['name'] = $val['name'];
+            $__temp_[$key]['phone'] = $val['phone'];
+           if($val['status'] ==1){ $status ="Aktif"; }else{ $status ="Non Aktif";}
+            $__temp_[$key]['status'] = $status;
             $created_at = (string) $val['created_at'];
             $__temp_[$key]['created_at'] = GeneralHelpers::tanggal_indo($created_at);
         }
@@ -108,18 +95,16 @@ class UserController extends AppBaseController
     {
 
         $fields = [
-            'email'     => 'Email',
-            'fullname'      => 'Fullname',
+          
+           
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'username'  => 'Username',
+            'name'  => 'Name',
 
         ];
 
         $validator =  Validator::make($request->all(), [
-            'email' => 'required|email|max:255|unique:users',
-            'fullname' => 'required|max:255',
-            'username' => 'required|max:8|min:4|unique:users',
+            'name' => 'required|max:8|min:4|unique:users',
             'password' => 'required|max:8|min:4|confirmed',
             'password_confirmation' => 'required|max:8|min:4|same:password',
         ]);
@@ -129,16 +114,9 @@ class UserController extends AppBaseController
             
             $errors = $validator->errors();
             
-            if($errors->has('email')){
-                $err['messages']['email'] = $errors->first('email');
-            }
-
-            if($errors->has('fullname')){
-                $err['messages']['fullname'] = $errors->first('fullname');
-            }
-
-            if($errors->has('username')){
-                $err['messages']['username'] = $errors->first('username');
+          
+            if($errors->has('name')){
+                $err['messages']['name'] = $errors->first('name');
             }
 
             if($errors->has('password')){
@@ -154,11 +132,10 @@ class UserController extends AppBaseController
         }
 
         $data = [
-            'email' => $request['email'],
-            'fullname' => $request['fullname'],
-            'username' => trim($request['username']),
+           
+            'name' => trim($request['name']),
             'password' => Hash::make(trim($request['password'])),
-            'status' => ($request['actived'] == 1) ? 'Y' : 'N',
+            'status' => ($request['status'] == 1) ? 1 : 0,
         ];  
 
         // return response()->json(['id'=>1]);
@@ -179,9 +156,8 @@ class UserController extends AppBaseController
         }
 
         $results['id'] = $user->id;
-        $results['username'] = $user['username'];
-        $results['fullname'] = $user['fullname'];
-        $results['email'] = $user['email'];
+        $results['name'] = $user['name'];
+    
         $results['status'] = $user['status'];
        
         return response()->json($results);
@@ -192,18 +168,17 @@ class UserController extends AppBaseController
         
         $err = array();
         $fields = [
-            'email'     => 'Email',
-            'fullname'      => 'Fullname',
+           
+        
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'username'  => 'Username',
+            'name'  => 'Name',
 
         ];
 
         $validator =  Validator::make($request->all(), [
-            'email' => 'required|email|max:255',
-            'fullname' => 'required|max:255',
-            'username' => 'required|max:8|min:4',
+            
+            'name' => 'required|max:8|min:4',
             'password' => 'nullable|max:8|min:4|confirmed',
             'password_confirmation' => 'nullable|max:8|min:4|same:password',
         ]);
@@ -213,17 +188,12 @@ class UserController extends AppBaseController
             
             $errors = $validator->errors();
             
-            if($errors->has('email')){
-                $err['messages']['email'] = $errors->first('email');
-            }
-
+           
             if($errors->has('name')){
-                $err['messages']['fullname'] = $errors->first('fullname');
+                $err['messages']['name'] = $errors->first('name');
             }
 
-            if($errors->has('username')){
-                $err['messages']['username'] = $errors->first('username');
-            }
+          
 
             if($errors->has('password') && !empty($request->has('password')) ){
                 $err['messages']['password'] = $errors->first('password');
@@ -242,10 +212,9 @@ class UserController extends AppBaseController
         }
 
         $data = [
-            'email' => $request['email'],
-            'fullname' => $request['fullname'],
-            'username' => trim($request['username']),
-            'status' => ($request['actived'] == 1) ? 'Y' : 'N',
+      
+            'name' => trim($request['name']),
+            'status' => ($request['status'] == 1) ? 'Y' : 'N',
         ];  
 
         $data = array_merge($pass,$data);

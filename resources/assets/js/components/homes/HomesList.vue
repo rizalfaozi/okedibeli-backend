@@ -139,7 +139,7 @@
     import localforage from 'localforage';
   
     localforage.config({
-        name: 'members'
+        name: 'home'
     });
 
     export default {
@@ -207,36 +207,7 @@
             },
             getListData() {
                 const self = this;
-                let q = {};
-                let listUrl = "";
-                //save page number
-                self.loading = true;
-                if (this.isSearch) {
-                    q = {
-                        id: this.searchParams.id,
-                        username: this.searchParams.username,
-                        email: this.searchParams.email,
-                        fullname: this.searchParams.fullname,
-                        order: this.searchParams.buildOrderStr,
-                        page: self.halaman
-                    }
-                    listUrl = BASE_URL + '/api/homes/search';
-                }else{
-                    q = {page: self.halaman}
-                    listUrl = BASE_URL + '/api/homes/lists';    
-                }
-
-                axios.get(listUrl, {
-                    params: q
-                }).then((response) => {
-                    self.lists = response.data;
-                    self.halaman = response.data.currentPage;
-                    self.total = response.data.lastPage;
-                    self.loading = false;
-                }).catch((error) => {
-                    console.log(error);
-                    self.loading = false;
-                });
+                
             },
         }
     }

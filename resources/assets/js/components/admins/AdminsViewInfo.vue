@@ -20,15 +20,10 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr><td align="left"><strong>ID </strong></td><td align="left">: {{ dataProfile.id }}</td></tr>
-                                <tr><td align="left"><strong>Username </strong></td><td align="left">: {{ dataProfile.username }}</td></tr>
-                                <tr><td align="left"><strong>Email </strong></td><td align="left">: {{ dataProfile.email }}</td></tr>
-                                <tr><td align="left"><strong>Nama Lengkap </strong></td><td align="left">: {{ dataProfile.fullname }}</td></tr>
-                                <tr>
-                                    <td align="left"><strong>Status </strong></td><td align="left">: 
-                                        <span class="fa-stack fa-lg" v-if="dataProfile.status === 'Y'"><i class="fa fa-circle-o fa-stack-2x text-success"></i><i class="fa fa-check fa-stack-1x fa-inverse text-success"></i></span>
-                                        <span class="fa-stack fa-lg" v-if="dataProfile.status === 'N'"><i class="fa fa-times-circle-o fa-stack-2x text-danger"></i></span>
-                                    </td>
-                                </tr>
+                                <tr><td align="left"><strong>Name </strong></td><td align="left">: {{ dataProfile.name }}</td></tr>
+                                <tr><td align="left"><strong>Phone </strong></td><td align="left">: {{ dataProfile.phone }}</td></tr>
+                                <tr><td align="left"><strong>Address </strong></td><td align="left">: {{ dataProfile.address }}</td></tr>
+                               
                             </tbody>
                         </table>
                     </div>

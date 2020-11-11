@@ -33,7 +33,7 @@ class MelonUserProvider implements UserProvider
         $qry = User::where('id', '=', $identifier);
 
         if ($qry->count() > 0) {
-            $user = $qry->select('id', 'username', 'email', 'password', 'status')->first();
+            $user = $qry->select('id', 'name', 'password', 'status')->first();
 
             // store in cache
             //$this->storeAuthCache('auth_retrievebyid_' . $identifier, $user);
@@ -62,10 +62,10 @@ class MelonUserProvider implements UserProvider
             }
         }*/
 
-        $qry = User::where('username', '=', $credentials['username']);
+        $qry = User::where('name', '=', $credentials['username']);
 
         if ($qry->count() > 0) {
-            $user = $qry->select('id', 'username', 'email', 'password', 'status')->first();
+            $user = $qry->select('id', 'name', 'password', 'status')->first();
 
             // store in cache
             //$this->storeAuthCache('auth_retrievebycredential_' . $credentials['username'], $user);
@@ -97,7 +97,7 @@ class MelonUserProvider implements UserProvider
         $qry = User::where('id', '=', $identifier)->where('remember_token', '=', $token);
 
         if ($qry->count() > 0) {
-            $user = $qry->select('id', 'username', 'email', 'password', 'status')->first();
+            $user = $qry->select('id', 'name', 'password', 'status')->first();
 
             // store in cache
             //$this->storeAuthCache('auth_retrievebytoken_' . $identifier . '_' . $token, $user);
@@ -141,7 +141,7 @@ class MelonUserProvider implements UserProvider
         // echo "<pre/>";print_r($credentials);
 
         if(Hash::check($credentials['password'], $user->password)){
-            if ($user->username == $credentials['username'] && $user->status == "Y") {
+            if ($user->name == $credentials['username'] && $user->status == 1) {
                 $user->updated_at = Carbon::now();
                 $user->save();
 

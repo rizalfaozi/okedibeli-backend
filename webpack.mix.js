@@ -13,13 +13,8 @@ let mix = require('laravel-mix');
 
  	mix.js('resources/assets/js/apps/members.js', 'public/vue/js')
  	.js('resources/assets/js/apps/homes.js', 'public/vue/js')
-	.js('resources/assets/js/apps/slide.js', 'public/vue/js')
-	.js('resources/assets/js/apps/themes.js', 'public/vue/js')
-	.js('resources/assets/js/apps/admins.js', 'public/vue/js')
-	.js('resources/assets/js/apps/news.js', 'public/vue/js')
-	.js('resources/assets/js/apps/fiture.js', 'public/vue/js')
-	.js('resources/assets/js/apps/profile.js', 'public/vue/js')
-	.js('resources/assets/js/apps/contact.js', 'public/vue/js').version();
+	
+	.js('resources/assets/js/apps/admins.js', 'public/vue/js').version();
 
 	mix.styles([
 	    'public/css/styles.min.css',

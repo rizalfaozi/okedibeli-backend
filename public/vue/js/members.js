@@ -2874,6 +2874,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["data"],
   data: function data() {
@@ -3104,16 +3106,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55470,9 +55462,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Username")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "200" } }, [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fullname")]),
+        _c("th", { attrs: { width: "200" } }, [_vm._v("Phone")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
         _vm._v(" "),
@@ -55507,47 +55497,21 @@ var render = function() {
       _vm._v(_vm._s(_vm.data.number))
     ]),
     _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Username" } }, [
-      _c("span", [
-        _vm.data.gender === "Female"
-          ? _c("i", { staticClass: "fa fa-female text-success ws-size-font" })
-          : _vm._e(),
-        _vm.data.gender === "Male"
-          ? _c("i", { staticClass: "fa fa-male text-success ws-size-font" })
-          : _vm._e(),
-        _vm._v("  " + _vm._s(_vm.data.username))
-      ])
+    _c("td", { attrs: { "data-title": "Name" } }, [
+      _c("span", [_vm._v(_vm._s(_vm.data.name))])
     ]),
     _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Email" } }, [
-      _vm._v(_vm._s(_vm.data.email))
-    ]),
-    _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Fullname" } }, [
-      _vm._v(_vm._s(_vm.data.fullname))
+    _c("td", { attrs: { "data-title": "Phone" } }, [
+      _c("span", [_vm._v(_vm._s(_vm.data.phone))])
     ]),
     _vm._v(" "),
     _c(
       "td",
       { staticClass: "text-center", attrs: { "data-title": "Status" } },
       [
-        _vm.data.status === "Y"
-          ? _c("span", { staticClass: "fa-stack fa-lg" }, [
-              _c("i", {
-                staticClass: "fa fa-circle-o fa-stack-2x text-success"
-              }),
-              _c("i", {
-                staticClass: "fa fa-check fa-stack-1x fa-inverse text-success"
-              })
-            ])
-          : _vm._e(),
-        _vm.data.status === "N"
-          ? _c("span", { staticClass: "fa-stack fa-lg" }, [
-              _c("i", {
-                staticClass: "fa fa-times-circle-o fa-stack-2x text-danger"
-              })
-            ])
-          : _vm._e()
+        _vm._v(
+          "\n                " + _vm._s(_vm.data.status) + "\n            "
+        )
       ]
     ),
     _vm._v(" "),
@@ -56047,54 +56011,18 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("tr", [
                                       _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Username ")])
+                                        _c("strong", [_vm._v("Name ")])
                                       ]),
                                       _c("td", { attrs: { align: "left" } }, [
                                         _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.username)
+                                          ": " + _vm._s(_vm.dataProfile.name)
                                         )
                                       ])
                                     ]),
                                     _vm._v(" "),
                                     _c("tr", [
                                       _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Email ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " + _vm._s(_vm.dataProfile.email)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Nama Lengkap ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.fullname)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Tanggal Lahir ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.brithday)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Handphone ")])
+                                        _c("strong", [_vm._v("Phone ")])
                                       ]),
                                       _c("td", { attrs: { align: "left" } }, [
                                         _vm._v(
@@ -56111,76 +56039,6 @@ var render = function() {
                                         _vm._v(
                                           ": " + _vm._s(_vm.dataProfile.address)
                                         )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Pekerjaan ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " + _vm._s(_vm.dataProfile.work)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Facebook ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.facebook)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Instagram ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.instagram)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Twitter ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": " + _vm._s(_vm.dataProfile.twitter)
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Jenis Kelamin ")])
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(": "),
-                                        _c("span", [
-                                          _vm.dataProfile.gender === "Female"
-                                            ? _c("i", {
-                                                staticClass:
-                                                  "fa fa-female text-success ws-size-font"
-                                              })
-                                            : _vm._e(),
-                                          _vm.dataProfile.gender === "Male"
-                                            ? _c("i", {
-                                                staticClass:
-                                                  "fa fa-male text-success ws-size-font"
-                                              })
-                                            : _vm._e()
-                                        ])
                                       ])
                                     ])
                                   ])

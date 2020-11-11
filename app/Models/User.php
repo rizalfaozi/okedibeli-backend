@@ -26,19 +26,17 @@ class User extends Model implements AuthenticatableContract
         
 
     public $fillable = [
-        'username',
-        'fullname',
-        'photo',
-        'email',
+        'name',
+        'phone',
         'password',
         'address',
-        'domain',
-        'packet',
-        'datestart',
-        'dateend',
-        'officename',
-        'instagram',
-        'facebook',
+        'province_id',
+        'province_name',
+        'city_id',
+        'city_name',
+        'subdistrict_id',
+        'subdistrict_name',
+        'photo',
         'type',
         'status'
     ];
@@ -49,19 +47,17 @@ class User extends Model implements AuthenticatableContract
      * @var array
      */
     protected $casts = [
-        'username' =>'string',
-        'fullname'=>'string',
-        'photo'=>'string',
-        'email'=>'string',
+        'name' =>'string',
+        'phone'=>'string',
         'password'=>'string',
         'address'=>'text',
-        'domain'=>'string',
-        'packet'=>'string',
-        'datestart'=>'date',
-        'dateend'=>'date',
-        'officename'=>'string',
-        'instagram'=>'string',
-        'facebook'=>'string',
+        'province_id'=>'integer',
+        'province_name'=>'string',
+        'city_id'=>'integer',
+        'city_name'=>'string',
+        'subdistrict_id'=>'integer',
+        'subdistrict_name'=>'string',
+        'photo'=>'string',
         'type'=>'string',
         'status'=>'string'
     ];

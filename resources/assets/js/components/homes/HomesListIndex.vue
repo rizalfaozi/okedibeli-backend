@@ -1,12 +1,6 @@
 <template>
 		<tr>
-			<td data-title="No">{{ data.number }}</td>
-		    <td data-title="Username">
-		    	{{ data.username }}
-		    </td>
-		   
-		    <td data-title="Poin">{{ data.point }}</td>
-           
+			
 		    
     	</tr>	
 </template>

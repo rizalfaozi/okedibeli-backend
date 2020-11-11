@@ -1,12 +1,11 @@
 <template>
 		<tr>
 			<td data-title="No">{{ data.number }}</td>
-		    <td data-title="Username">{{ data.username }}</td>
-		    <td data-title="Email">{{ data.email }}</td>
-		    <td data-title="Fullname">{{ data.fullname }}</td>
+		    <td data-title="Username">{{ data.name }}</td>
+		    <td data-title="Email">{{ data.phone }}</td>
+		  
             <td data-title="Status" class="text-center">
-                <span class="fa-stack fa-lg" v-if="data.status === 'Y'"><i class="fa fa-circle-o fa-stack-2x text-success"></i><i class="fa fa-check fa-stack-1x fa-inverse text-success"></i></span>
-                <span class="fa-stack fa-lg" v-if="data.status === 'N'"><i class="fa fa-times-circle-o fa-stack-2x text-danger"></i></span>
+              {{ data.status }}
             </td>
 		    <td data-title="Option" class="text-center">
                 <router-link :to="{path: '/edit/'+data.id}">

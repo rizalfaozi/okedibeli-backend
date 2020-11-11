@@ -24,8 +24,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Username</th>
-                                <th>Email</th>
-                                <th>Fullname</th>
+                                <th>Phone</th>
+                              
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Option</th>
                             </tr>

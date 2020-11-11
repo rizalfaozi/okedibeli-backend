@@ -26,18 +26,16 @@ class Member extends Model
 
     public $fillable = [
         'username',
-        'fullname',
-        'photo',
-        'email',
+        'phone',
         'password',
         'address',
-        'domain',
-        'packet',
-        'date_start',
-        'date_end',
-        'office_name',
-        'instagram',
-        'facebook',
+        'province_id',
+        'province_name',
+        'city_id',
+        'city_name',
+        'subdistrict_id',
+        'subdistrict_name',
+        'photo',
         'type',
         'status'
     ];
@@ -48,19 +46,17 @@ class Member extends Model
      * @var array
      */
     protected $casts = [
-        'username' =>'string',
-        'fullname'=>'string',
-        'photo'=>'string',
-        'email'=>'string',
+        'name' =>'string',
+        'phone'=>'string',
         'password'=>'string',
         'address'=>'text',
-        'domain'=>'string',
-        'packet'=>'string',
-        'date_start'=>'string',
-        'date_end'=>'string',
-        'office_name'=>'string',
-        'instagram'=>'string',
-        'facebook'=>'string',
+        'province_id'=>'integer',
+        'province_name'=>'string',
+        'city_id'=>'integer',
+        'city_name'=>'string',
+        'subdistrict_id'=>'integer',
+        'subdistrict_name'=>'string',
+        'photo'=>'string',
         'type'=>'string',
         'status'=>'string'
     ];

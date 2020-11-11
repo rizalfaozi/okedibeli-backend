@@ -2049,7 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
-  name: 'members'
+  name: 'home'
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2119,39 +2119,6 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
     },
     getListData: function getListData() {
       var self = this;
-      var q = {};
-      var listUrl = ""; //save page number
-
-      self.loading = true;
-
-      if (this.isSearch) {
-        q = {
-          id: this.searchParams.id,
-          username: this.searchParams.username,
-          email: this.searchParams.email,
-          fullname: this.searchParams.fullname,
-          order: this.searchParams.buildOrderStr,
-          page: self.halaman
-        };
-        listUrl = BASE_URL + '/api/homes/search';
-      } else {
-        q = {
-          page: self.halaman
-        };
-        listUrl = BASE_URL + '/api/homes/lists';
-      }
-
-      axios.get(listUrl, {
-        params: q
-      }).then(function (response) {
-        self.lists = response.data;
-        self.halaman = response.data.currentPage;
-        self.total = response.data.lastPage;
-        self.loading = false;
-      })["catch"](function (error) {
-        console.log(error);
-        self.loading = false;
-      });
     }
   }
 });
@@ -2205,12 +2172,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -25632,19 +25593,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
-    _c("td", { attrs: { "data-title": "No" } }, [
-      _vm._v(_vm._s(_vm.data.number))
-    ]),
-    _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Username" } }, [
-      _vm._v("\n\t\t    \t" + _vm._s(_vm.data.username) + "\n\t\t    ")
-    ]),
-    _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Poin" } }, [
-      _vm._v(_vm._s(_vm.data.point))
-    ])
-  ])
+  return _c("tr")
 }
 var staticRenderFns = []
 render._withStripped = true

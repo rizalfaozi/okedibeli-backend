@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2674,7 +2674,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["data"],
   data: function data() {
@@ -2875,11 +2874,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -27200,9 +27194,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Username")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fullname")]),
+        _c("th", [_vm._v("Phone")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
         _vm._v(" "),
@@ -27238,40 +27230,17 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("td", { attrs: { "data-title": "Username" } }, [
-      _vm._v(_vm._s(_vm.data.username))
+      _vm._v(_vm._s(_vm.data.name))
     ]),
     _vm._v(" "),
     _c("td", { attrs: { "data-title": "Email" } }, [
-      _vm._v(_vm._s(_vm.data.email))
-    ]),
-    _vm._v(" "),
-    _c("td", { attrs: { "data-title": "Fullname" } }, [
-      _vm._v(_vm._s(_vm.data.fullname))
+      _vm._v(_vm._s(_vm.data.phone))
     ]),
     _vm._v(" "),
     _c(
       "td",
       { staticClass: "text-center", attrs: { "data-title": "Status" } },
-      [
-        _vm.data.status === "Y"
-          ? _c("span", { staticClass: "fa-stack fa-lg" }, [
-              _c("i", {
-                staticClass: "fa fa-circle-o fa-stack-2x text-success"
-              }),
-              _c("i", {
-                staticClass: "fa fa-check fa-stack-1x fa-inverse text-success"
-              })
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.data.status === "N"
-          ? _c("span", { staticClass: "fa-stack fa-lg" }, [
-              _c("i", {
-                staticClass: "fa fa-times-circle-o fa-stack-2x text-danger"
-              })
-            ])
-          : _vm._e()
-      ]
+      [_vm._v("\n              " + _vm._s(_vm.data.status) + "\n            ")]
     ),
     _vm._v(" "),
     _c(
@@ -27660,76 +27629,34 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("tr", [
                                       _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Username ")])
+                                        _c("strong", [_vm._v("Name ")])
                                       ]),
                                       _c("td", { attrs: { align: "left" } }, [
                                         _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.username)
+                                          ": " + _vm._s(_vm.dataProfile.name)
                                         )
                                       ])
                                     ]),
                                     _vm._v(" "),
                                     _c("tr", [
                                       _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Email ")])
+                                        _c("strong", [_vm._v("Phone ")])
                                       ]),
                                       _c("td", { attrs: { align: "left" } }, [
                                         _vm._v(
-                                          ": " + _vm._s(_vm.dataProfile.email)
+                                          ": " + _vm._s(_vm.dataProfile.phone)
                                         )
                                       ])
                                     ]),
                                     _vm._v(" "),
                                     _c("tr", [
                                       _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Nama Lengkap ")])
+                                        _c("strong", [_vm._v("Address ")])
                                       ]),
                                       _c("td", { attrs: { align: "left" } }, [
                                         _vm._v(
-                                          ": " +
-                                            _vm._s(_vm.dataProfile.fullname)
+                                          ": " + _vm._s(_vm.dataProfile.address)
                                         )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("tr", [
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _c("strong", [_vm._v("Status ")])
-                                      ]),
-                                      _c("td", { attrs: { align: "left" } }, [
-                                        _vm._v(
-                                          ": \n                                        "
-                                        ),
-                                        _vm.dataProfile.status === "Y"
-                                          ? _c(
-                                              "span",
-                                              { staticClass: "fa-stack fa-lg" },
-                                              [
-                                                _c("i", {
-                                                  staticClass:
-                                                    "fa fa-circle-o fa-stack-2x text-success"
-                                                }),
-                                                _c("i", {
-                                                  staticClass:
-                                                    "fa fa-check fa-stack-1x fa-inverse text-success"
-                                                })
-                                              ]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _vm.dataProfile.status === "N"
-                                          ? _c(
-                                              "span",
-                                              { staticClass: "fa-stack fa-lg" },
-                                              [
-                                                _c("i", {
-                                                  staticClass:
-                                                    "fa fa-times-circle-o fa-stack-2x text-danger"
-                                                })
-                                              ]
-                                            )
-                                          : _vm._e()
                                       ])
                                     ])
                                   ])
@@ -45128,7 +45055,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 4:
+/***/ 2:
 /*!**************************************************!*\
   !*** multi ./resources/assets/js/apps/admins.js ***!
   \**************************************************/
