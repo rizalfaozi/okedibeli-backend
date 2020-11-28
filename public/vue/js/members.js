@@ -2043,53 +2043,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
   name: 'members'
@@ -2099,32 +2052,23 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
     return {
       results: {
         messages: {
-          office_name: "",
-          email: "",
-          fullname: "",
-          username: "",
+          name: "",
+          phone: "",
+          type: "",
           address: "",
-          domain: "",
-          packet: "",
-          date_start: "",
-          date_end: "",
+          status: "",
           password: "",
           password_confirmation: ""
         }
       },
       id: "",
-      office_name: "",
-      email: "",
-      fullname: "",
-      username: "",
+      name: "",
+      phone: "",
+      type: "",
       address: "",
-      domain: "",
-      packet: "",
-      date_start: "",
-      date_end: "",
       password: "",
       password_confirmation: "",
-      actived: false,
+      status: false,
       btnLoading: false,
       btnCancel: true,
       btnSubmit: true,
@@ -2133,17 +2077,7 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
       userID: ""
     };
   },
-  mounted: function mounted() {
-    new Switchery(this.$refs.wan);
-    this.editData();
-    console.log("query");
-
-    if (this.$route.params.id) {
-      console.log("aaaaa");
-    } else {
-      console.log("bbbbb");
-    }
-  },
+  mounted: function mounted() {},
   computed: {
     base_url: function base_url() {
       return BASE_URL;
@@ -2151,65 +2085,8 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
   },
   components: {},
   methods: {
-    editData: function editData() {
-      var _this = this;
-
-      this.loading = true;
-      console.log("pppppppppp");
-      this.userID = this.$route.params.id;
-      console.log(this.userID);
-
-      if (this.$route.params.id) {
-        console.log("masuk");
-        axios.get(BASE_URL + '/api/members/edituser/' + this.userID).then(function (response) {
-          if (response.data.id) {
-            _this.edit = true;
-            _this.loading = false;
-            _this.id = response.data.id;
-            _this.office_name = response.data.office_name;
-            _this.email = response.data.email;
-            _this.fullname = response.data.fullname;
-            _this.username = response.data.username;
-            _this.address = response.data.address;
-            _this.domain = response.data.domain;
-            _this.packet = response.data.packet;
-            _this.date_start = response.data.date_start;
-            _this.date_end = response.data.date_end;
-            _this.status = response.data.status;
-            console.log(response.data.status);
-
-            if (response.data.status === "Y") {
-              console.log("actived");
-              _this.actived = true;
-            }
-          } else {
-            _this.loading = false;
-
-            _this.$swal({
-              title: "Data Tidak Ditemukan",
-              icon: "warning"
-            }).then(function (result) {
-              if (result) {
-                _this.$router.push({
-                  path: '/'
-                });
-              }
-            });
-          }
-        })["catch"](function (error) {
-          console.log(error);
-          _this.loading = false;
-        });
-      } else {
-        this.loading = false;
-        return false;
-      }
-    },
-    editPostData: function editPostData() {
-      console.log("editPostUser");
-    },
     postData: function postData() {
-      var _this2 = this;
+      var _this = this;
 
       console.log("postUser");
       this.btnLoading = true;
@@ -2217,51 +2094,39 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
       this.btnSubmit = false;
       var urlBase = "";
       var postData = {
-        office_name: this.office_name,
-        email: this.email,
-        fullname: this.fullname,
-        username: this.username,
+        name: this.name,
+        phone: this.phone,
+        type: this.type,
         address: this.address,
-        domain: this.domain,
-        packet: this.packet,
-        date_start: this.date_start,
-        date_end: this.date_end,
         password: this.password,
         password_confirmation: this.password_confirmation,
-        status: this.actived
+        status: this.status
       };
-
-      if (this.edit) {
-        console.log("update");
-        urlBase = axios.put(BASE_URL + '/api/members/update/' + this.userID, postData);
-      } else {
-        urlBase = axios.post(BASE_URL + '/api/members/post', postData);
-      }
-
+      urlBase = axios.post(BASE_URL + '/api/members/post', postData);
       urlBase.then(function (response) {
         if (response.data.id) {
           console.log("save");
 
-          _this2.$swal({
+          _this.$swal({
             title: "Berhasi Di Simpan",
             icon: "success"
           }).then(function (result) {
             if (result) {
-              _this2.$router.push({
+              _this.$router.push({
                 path: '/'
               });
             }
           });
         } else {
-          _this2.results = response.data;
+          _this.results = response.data;
         }
 
-        _this2.btnLoading = false;
-        _this2.btnCancel = true;
-        _this2.btnSubmit = true;
+        _this.btnLoading = false;
+        _this.btnCancel = true;
+        _this.btnSubmit = true;
       })["catch"](function (error) {
         console.log(error);
-        _this2.loading = false;
+        _this.loading = false;
       });
     }
   }
@@ -53786,11 +53651,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.office_name ? "has-error" : ""
+                      class: _vm.results.messages.name ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Office Name")
+                        _vm._v("Name")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -53799,31 +53664,31 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.office_name,
-                              expression: "office_name"
+                              value: _vm.name,
+                              expression: "name"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Office Name" },
-                          domProps: { value: _vm.office_name },
+                          attrs: { type: "text", placeholder: "Name" },
+                          domProps: { value: _vm.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.office_name = $event.target.value
+                              _vm.name = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.results.messages.office_name !== ""
+                        _vm.results.messages.name !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.office_name))]
+                              [_vm._v(_vm._s(_vm.results.messages.name))]
                             )
                           : _vm._e()
                       ])
@@ -53834,11 +53699,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.email ? "has-error" : ""
+                      class: _vm.results.messages.phone ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Email")
+                        _vm._v("Phone")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -53847,31 +53712,31 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.email,
-                              expression: "email"
+                              value: _vm.phone,
+                              expression: "phone"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "email", placeholder: "Email" },
-                          domProps: { value: _vm.email },
+                          attrs: { type: "number", placeholder: "Phone" },
+                          domProps: { value: _vm.phone },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.email = $event.target.value
+                              _vm.phone = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.results.messages.email !== ""
+                        _vm.results.messages.name !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.email))]
+                              [_vm._v(_vm._s(_vm.results.messages.name))]
                             )
                           : _vm._e()
                       ])
@@ -53882,11 +53747,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.username ? "has-error" : ""
+                      class: _vm.results.messages.type ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Username")
+                        _vm._v("Type")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -53895,79 +53760,31 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.username,
-                              expression: "username"
+                              value: _vm.type,
+                              expression: "type"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "username", placeholder: "username" },
-                          domProps: { value: _vm.username },
+                          attrs: { type: "text", placeholder: "Type" },
+                          domProps: { value: _vm.type },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.username = $event.target.value
+                              _vm.type = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.results.messages.username !== ""
+                        _vm.results.messages.type !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.username))]
-                            )
-                          : _vm._e()
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.fullname ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Fullname")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-8" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fullname,
-                              expression: "fullname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Fullname" },
-                          domProps: { value: _vm.fullname },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fullname = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.results.messages.fullname !== ""
-                          ? _c(
-                              "label",
-                              {
-                                staticClass: "control-label",
-                                attrs: { for: "" }
-                              },
-                              [_vm._v(_vm._s(_vm.results.messages.fullname))]
+                              [_vm._v(_vm._s(_vm.results.messages.type))]
                             )
                           : _vm._e()
                       ])
@@ -54019,198 +53836,6 @@ var render = function() {
                             )
                           : _vm._e()
                       ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.domain ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Domain")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-8" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.domain,
-                              expression: "domain"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Domain" },
-                          domProps: { value: _vm.domain },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.domain = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.results.messages.domain !== ""
-                          ? _c(
-                              "label",
-                              {
-                                staticClass: "control-label",
-                                attrs: { for: "" }
-                              },
-                              [_vm._v(_vm._s(_vm.results.messages.domain))]
-                            )
-                          : _vm._e()
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.packet ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Packet")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-8" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.packet,
-                              expression: "packet"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Packet" },
-                          domProps: { value: _vm.packet },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.packet = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.results.messages.packet !== ""
-                          ? _c(
-                              "label",
-                              {
-                                staticClass: "control-label",
-                                attrs: { for: "" }
-                              },
-                              [_vm._v(_vm._s(_vm.results.messages.packet))]
-                            )
-                          : _vm._e()
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.date_start ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Date Start")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8" },
-                        [
-                          _c("datetime", {
-                            attrs: {
-                              type: "datetime",
-                              "value-zone": "Asia/Jakarta",
-                              format: "yyyy-MM-dd HH:mm:ss"
-                            },
-                            model: {
-                              value: _vm.date_start,
-                              callback: function($$v) {
-                                _vm.date_start = $$v
-                              },
-                              expression: "date_start"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.results.messages.date_start !== ""
-                            ? _c(
-                                "label",
-                                {
-                                  staticClass: "control-label",
-                                  attrs: { for: "" }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.results.messages.date_start)
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.date_end ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Date End")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-8" },
-                        [
-                          _c("datetime", {
-                            attrs: {
-                              type: "datetime",
-                              "value-zone": "Asia/Jakarta",
-                              format: "yyyy-MM-dd HH:mm:ss"
-                            },
-                            model: {
-                              value: _vm.date_end,
-                              callback: function($$v) {
-                                _vm.date_end = $$v
-                              },
-                              expression: "date_end"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.results.messages.date_end !== ""
-                            ? _c(
-                                "label",
-                                {
-                                  staticClass: "control-label",
-                                  attrs: { for: "" }
-                                },
-                                [_vm._v(_vm._s(_vm.results.messages.date_end))]
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
                     ]
                   ),
                   _vm._v(" "),
@@ -54345,20 +53970,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.actived,
-                                  expression: "actived"
+                                  value: _vm.status,
+                                  expression: "status"
                                 }
                               ],
                               attrs: { type: "checkbox" },
                               domProps: {
-                                checked: _vm.actived,
-                                checked: Array.isArray(_vm.actived)
-                                  ? _vm._i(_vm.actived, null) > -1
-                                  : _vm.actived
+                                checked: _vm.status,
+                                checked: Array.isArray(_vm.status)
+                                  ? _vm._i(_vm.status, null) > -1
+                                  : _vm.status
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.actived,
+                                  var $$a = _vm.status,
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
@@ -54366,15 +53991,15 @@ var render = function() {
                                       $$i = _vm._i($$a, $$v)
                                     if ($$el.checked) {
                                       $$i < 0 &&
-                                        (_vm.actived = $$a.concat([$$v]))
+                                        (_vm.status = $$a.concat([$$v]))
                                     } else {
                                       $$i > -1 &&
-                                        (_vm.actived = $$a
+                                        (_vm.status = $$a
                                           .slice(0, $$i)
                                           .concat($$a.slice($$i + 1)))
                                     }
                                   } else {
-                                    _vm.actived = $$c
+                                    _vm.status = $$c
                                   }
                                 }
                               }
@@ -54384,7 +54009,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm.actived === true
+                        _vm.status === true
                           ? _c(
                               "span",
                               {

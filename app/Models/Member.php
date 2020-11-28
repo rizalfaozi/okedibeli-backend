@@ -25,7 +25,7 @@ class Member extends Model
         
 
     public $fillable = [
-        'username',
+        'name',
         'phone',
         'password',
         'address',
@@ -67,7 +67,7 @@ class Member extends Model
      * @var array
      */
     public static $rules = [
-        'username' => 'required'
+        'name' => 'required'
     ];
 
     

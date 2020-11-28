@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2020 at 01:58 AM
+-- Generation Time: Nov 28, 2020 at 06:51 AM
 -- Server version: 5.5.60-0+deb8u1
 -- PHP Version: 5.6.40-0+deb8u8
 
@@ -28,40 +28,28 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `cart` (
 `id` int(11) unsigned NOT NULL,
+  `order_id` varchar(100) NOT NULL,
   `product_id` int(11) unsigned NOT NULL,
   `product_name` varchar(80) NOT NULL,
-  `destination_id` int(11) unsigned NOT NULL,
-  `destination_name` varchar(80) NOT NULL,
-  `inventory_id` int(11) NOT NULL,
-  `inventory_name` varchar(50) NOT NULL,
-  `inv_location_id` int(10) unsigned NOT NULL,
   `detloc_id` int(11) NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
-  `ip_address` varchar(100) NOT NULL,
   `weight` int(11) NOT NULL,
   `size` varchar(50) NOT NULL,
-  `color` varchar(50) NOT NULL,
+  `variant` varchar(50) NOT NULL,
   `qty` int(11) NOT NULL,
   `price` varchar(80) NOT NULL,
-  `shipping_price` int(11) NOT NULL,
   `total` int(11) NOT NULL,
-  `courier` varchar(15) NOT NULL,
-  `service` varchar(15) NOT NULL,
   `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `product_id`, `product_name`, `destination_id`, `destination_name`, `inventory_id`, `inventory_name`, `inv_location_id`, `detloc_id`, `user_id`, `ip_address`, `weight`, `size`, `color`, `qty`, `price`, `shipping_price`, `total`, `courier`, `service`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 5, 'SW17', 0, '', 1, 'GD Yogyakarta', 419, 2, 0, '10.0.2.2', 1500, '39', 'kuning', 1, '50000', 174000, 50000, 'jne', 'OKE', 0, '2020-11-05 05:09:24', '2020-11-09 01:39:43', NULL),
-(12, 6, 'SP24', 0, '', 1, 'GD Yogyakarta', 419, 1, 0, '10.0.2.2', 1000, '39', 'Kuning', 2, '49000', 0, 98000, 'jne', 'OKE', 0, '2020-11-05 04:22:19', '2020-11-08 08:02:34', NULL),
-(13, 6, 'SP24', 0, '', 1, 'GD Yogyakarta', 419, 1, 0, '10.0.2.2', 1500, '40', 'Merah', 1, '49000', 0, 49000, 'jne', 'OKE', 0, '2020-11-05 05:29:03', '2020-11-08 08:02:34', NULL),
-(14, 6, 'SP24', 0, '', 1, 'GD Yogyakarta', 419, 1, 0, '10.0.2.2', 1500, '39', 'Kuning', 1, '49000', 0, 49000, 'jne', 'OKE', 0, '2020-11-05 05:32:43', '2020-11-08 08:02:34', NULL);
+INSERT INTO `cart` (`id`, `order_id`, `product_id`, `product_name`, `detloc_id`, `weight`, `size`, `variant`, `qty`, `price`, `total`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, '1011202001', 5, 'SW17', 2, 400, '39', 'kuning', 1, '50000', 50000, 1, '2020-11-05 05:09:24', '2020-11-25 22:43:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -133,32 +121,6 @@ INSERT INTO `category` (`id`, `name`, `type`, `param`, `sub_id`, `slug`, `photo`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `color`
---
-
-CREATE TABLE IF NOT EXISTS `color` (
-`id` int(11) unsigned NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `color_bg` varchar(10) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `color`
---
-
-INSERT INTO `color` (`id`, `name`, `color_bg`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Kuning', '', '2020-10-11 15:39:37', NULL, NULL),
-(2, 'Merah', '', '2020-10-11 15:39:37', NULL, NULL),
-(3, 'Putih', '', '2020-10-11 15:39:37', NULL, NULL),
-(4, 'Pink', '', '2020-10-11 15:39:37', NULL, NULL),
-(5, 'Biru', '', '2020-10-11 15:39:37', NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `courier`
 --
 
@@ -211,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `detail_attribut_product` (
   `id` int(11) unsigned NOT NULL,
   `product_id` int(11) unsigned NOT NULL,
   `detlocproduct_id` int(11) unsigned NOT NULL,
-  `color_id` int(11) unsigned NOT NULL,
+  `variant_id` int(11) unsigned NOT NULL,
   `size` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -222,9 +184,37 @@ CREATE TABLE IF NOT EXISTS `detail_attribut_product` (
 -- Dumping data for table `detail_attribut_product`
 --
 
-INSERT INTO `detail_attribut_product` (`id`, `product_id`, `detlocproduct_id`, `color_id`, `size`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `detail_attribut_product` (`id`, `product_id`, `detlocproduct_id`, `variant_id`, `size`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 6, 1, 1, 39, '2020-10-11 15:41:34', NULL, NULL),
 (2, 6, 1, 2, 40, '2020-10-11 15:41:34', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_cart`
+--
+
+CREATE TABLE IF NOT EXISTS `detail_cart` (
+`id` int(11) unsigned NOT NULL,
+  `order_id` varchar(100) NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `inventory_id` int(11) unsigned NOT NULL,
+  `destination` int(30) NOT NULL,
+  `total_weight` int(30) NOT NULL,
+  `total_price` int(10) NOT NULL,
+  `shippingcost` int(30) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detail_cart`
+--
+
+INSERT INTO `detail_cart` (`id`, `order_id`, `user_id`, `inventory_id`, `destination`, `total_weight`, `total_price`, `shippingcost`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1011202001', 33, 1, 5781, 400, 50000, 0, 1, '2020-11-12 20:33:54', '2020-11-25 22:43:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -236,7 +226,6 @@ CREATE TABLE IF NOT EXISTS `detail_location_product` (
   `id` int(11) unsigned NOT NULL,
   `product_id` int(11) unsigned NOT NULL,
   `inventory_id` int(11) unsigned NOT NULL,
-  `courier_id` int(11) NOT NULL,
   `courier_service` varchar(80) NOT NULL,
   `stock` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -248,9 +237,9 @@ CREATE TABLE IF NOT EXISTS `detail_location_product` (
 -- Dumping data for table `detail_location_product`
 --
 
-INSERT INTO `detail_location_product` (`id`, `product_id`, `inventory_id`, `courier_id`, `courier_service`, `stock`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 6, 1, 1, 'OKE', 100, '2020-10-11 15:12:02', NULL, NULL),
-(2, 5, 1, 1, 'OKE', 50, '2020-11-05 05:10:57', NULL, NULL);
+INSERT INTO `detail_location_product` (`id`, `product_id`, `inventory_id`, `courier_service`, `stock`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 6, 1, 'OKE', 100, '2020-10-11 15:12:02', NULL, NULL),
+(2, 5, 1, 'OKE', 50, '2020-11-05 05:10:57', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -293,6 +282,29 @@ INSERT INTO `detail_photo_product` (`id`, `product_id`, `photo`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `followup`
+--
+
+CREATE TABLE IF NOT EXISTS `followup` (
+`id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `messages` text NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `followup`
+--
+
+INSERT INTO `followup` (`id`, `name`, `messages`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Follow up Coustumer', 'tes', 'costumer', '2020-11-25 21:54:19', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -300,6 +312,8 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 `id` int(11) unsigned NOT NULL,
   `name` varchar(80) NOT NULL,
   `courier_id` int(11) unsigned NOT NULL,
+  `optional` varchar(50) NOT NULL,
+  `courier_service` varchar(80) NOT NULL,
   `province_id` int(11) unsigned NOT NULL,
   `province_name` varchar(50) NOT NULL,
   `city_id` int(11) unsigned NOT NULL,
@@ -316,9 +330,9 @@ CREATE TABLE IF NOT EXISTS `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`id`, `name`, `courier_id`, `province_id`, `province_name`, `city_id`, `city_name`, `subdistrict_id`, `subdistrict_name`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'GD Yogyakarta', 1, 5, 'DI Yogyakarta', 419, 'Sleman', 5779, 'Berbah', 1, '2020-11-04 20:27:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Tanggerang', 2, 3, '', 457, '', 6312, '', 1, '2020-10-11 15:20:36', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `inventory` (`id`, `name`, `courier_id`, `optional`, `courier_service`, `province_id`, `province_name`, `city_id`, `city_name`, `subdistrict_id`, `subdistrict_name`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'GD Yogyakarta', 3, 'special', 'STANDARD', 5, 'DI Yogyakarta', 419, 'Sleman', 5779, 'Berbah', 1, '2020-11-12 21:10:19', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Tanggerang', 2, 'all', '', 3, '', 457, '', 6312, '', 1, '2020-11-12 21:09:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -360,6 +374,49 @@ INSERT INTO `product` (`id`, `name`, `slug`, `summary`, `description`, `category
 (5, 'SW17', 'sw17', '<span style="font-family: Roboto;"><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;">-</span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> </span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"><span style="font-weight: bold;">Bisa COD / Bayar di Tempat Se-Indonesia</span></span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Promo Beli 2 BONUS Dompet / Jam / Sunglass UV</span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"></span><span style="color: rgb(0, 0, 0); font-size: 15px; text-align: start; white-space: pre-wrap;">- </span></span><span style="color: rgb(34, 34, 34); font-family: Roboto; font-size: medium; white-space: pre-wrap;">Klik <span style="font-weight: bold;">Tombol Orange BELI SEKARANG</span> Dibawah. Jika Ada Error Whatsapp ke 0811122214.</span></br>', '<div>                         <div>                                                          <span style="font-family: Roboto;">                                      </br>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                                                          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Bahan</span><span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> : Kulit </span>                                     </br>                                     </br>                                        <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Ukuran</span>                                      <span style="text-align: justify;">                                     <span style="color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">  : P x L                                 39 (26 cm x 9 cm)                                 40 (27 cm x 9 cm )                                 41 (28 cm x 9,5 cm )                                 42 (28,5 cm x 10 cm )                                 43 (29 cm x 10 cm)<br></span></span>                             </span>                          </div>          <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">         - </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Pembayaran via COD </span>         </br>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">     -</span>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Foto diatas adalah 100% Asli</span>     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> (Jikapun ada Sedikit Perbedaan Warna Mungkin Karena Efek Pencahayaan)</span>     </span>          </br>         </br>      <p>     <span style="font-family: Roboto;">                  <span style="color: rgb(74, 85, 104); font-family: system-ui, -apple-system, BlinkMacSystemFont;">- </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Merek</span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;"> </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Produk ini : ditokocom </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kode Sertifikat SP26, </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kerahasiaan data anda dipastikan terjaga ketika berbelanja disini.</span>     </span>     </p>      <p>     <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"><br>         </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">-</span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Pembelian hanya melalui Web &amp; Whatsapp </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">tidak membuka toko di marketplace (Toped, BL, Shopee) &amp; tidak memiliki reseller / dropshipper</span>     </span>     </p>  </div>', 9, 15, 'promo', 20, 'no', 49000, 10000, '', '', 1, 1, '2020-10-10 22:42:55', NULL, NULL),
 (6, 'SP24', 'sp24', '<span style="font-family: Roboto;">    <span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;">-</span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">     </span>    <span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">        <span style="font-weight: bold;">Bisa COD / Bayar di Tempat Se-Indonesia</span>    </span>   </br>    <span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>    <span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Promo Beli 2 BONUS Dompet / Jam / Sunglass UV</span>    <span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">    </span>   </br>    <span style="color: rgb(0, 0, 0); font-size: 15px; text-align: start; white-space: pre-wrap;">- </span>    </span>       <span style="color: rgb(34, 34, 34); font-family: Roboto; font-size: medium; white-space: pre-wrap;">Klik <span style="font-weight: bold;">Tombol Orange BELI SEKARANG</span> Dibawah. Jika Ada Error Whatsapp ke 0811122214.</span> <br>', '<div>                         <div>                                                          <span style="font-family: Roboto;">                                      </br>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                                                          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Bahan</span><span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> : Kulit </span>                                     </br>                                     </br>                                        <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Ukuran</span>                                      <span style="text-align: justify;">                                     <span style="color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">  : P x L                                 39 (26 cm x 9 cm)                                 40 (27 cm x 9 cm )                                 41 (28 cm x 9,5 cm )                                 42 (28,5 cm x 10 cm )                                 43 (29 cm x 10 cm)<br></span></span>                             </span>                          </div>          <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">         - </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Pembayaran via COD </span>         </br>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">     -</span>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Foto diatas adalah 100% Asli</span>     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> (Jikapun ada Sedikit Perbedaan Warna Mungkin Karena Efek Pencahayaan)</span>     </span>          </br>         </br>      <p>     <span style="font-family: Roboto;">                  <span style="color: rgb(74, 85, 104); font-family: system-ui, -apple-system, BlinkMacSystemFont;">- </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Merek</span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;"> </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Produk ini : ditokocom </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kode Sertifikat SP26, </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kerahasiaan data anda dipastikan terjaga ketika berbelanja disini.</span>     </span>     </p>      <p>     <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"><br>         </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">-</span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Pembelian hanya melalui Web &amp; Whatsapp </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">tidak membuka toko di marketplace (Toped, BL, Shopee) &amp; tidak memiliki reseller / dropshipper</span>     </span>     </p>  </div>', 1, 2, 'standar', 10, 'yes', 49000, 100000, '', '', 1, 1, '2020-10-10 23:21:26', NULL, NULL),
 (7, 'SW08', 'sw08', '<span style="font-family: Roboto;"><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;">-</span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> </span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"><span style="font-weight: bold;">Bisa COD / Bayar di Tempat Se-Indonesia</span></span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Promo Beli 2 BONUS Dompet / Jam / Sunglass UV</span><span style="text-align: start; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"></span><span style="color: rgb(0, 0, 0); font-size: 15px; text-align: start; white-space: pre-wrap;">- </span></span><span style="color: rgb(34, 34, 34); font-family: Roboto; font-size: medium; white-space: pre-wrap;">Klik <span style="font-weight: bold;">Tombol Orange BELI SEKARANG</span> Dibawah. Jika Ada Error Whatsapp ke 0811122214.</span></br>', '<div>                         <div>                                                          <span style="font-family: Roboto;">                                      </br>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                                                          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Bahan</span><span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> : Kulit </span>                                     </br>                                     </br>                                        <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- </span>                                     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Ukuran</span>                                      <span style="text-align: justify;">                                     <span style="color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">  : P x L                                 39 (26 cm x 9 cm)                                 40 (27 cm x 9 cm )                                 41 (28 cm x 9,5 cm )                                 42 (28,5 cm x 10 cm )                                 43 (29 cm x 10 cm)<br></span></span>                             </span>                          </div>          <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">         - </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;">Pembayaran via COD </span>         </br>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">     -</span>      <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Foto diatas adalah 100% Asli</span>     <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"> (Jikapun ada Sedikit Perbedaan Warna Mungkin Karena Efek Pencahayaan)</span>     </span>          </br>         </br>      <p>     <span style="font-family: Roboto;">                  <span style="color: rgb(74, 85, 104); font-family: system-ui, -apple-system, BlinkMacSystemFont;">- </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Merek</span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; font-weight: 700; white-space: pre-wrap;"> </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">Produk ini : ditokocom </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kode Sertifikat SP26, </span>          <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">- Kerahasiaan data anda dipastikan terjaga ketika berbelanja disini.</span>     </span>     </p>      <p>     <span style="font-family: Roboto;">         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;"><br>         </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">-</span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap; font-weight: bold;"> Pembelian hanya melalui Web &amp; Whatsapp </span>         <span style="text-align: justify; color: rgb(0, 0, 0); font-size: 15px; white-space: pre-wrap;">tidak membuka toko di marketplace (Toped, BL, Shopee) &amp; tidak memiliki reseller / dropshipper</span>     </span>     </p>  </div>', 9, 15, 'standar', 10, 'yes', 49000, 100000, '', '', 1, 1, '2020-10-31 23:29:35', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_bundle`
+--
+
+CREATE TABLE IF NOT EXISTS `product_bundle` (
+`id` int(11) unsigned NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `price` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `variant` varchar(50) NOT NULL,
+  `size` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `photo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_service`
+--
+
+CREATE TABLE IF NOT EXISTS `product_service` (
+`id` int(11) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
+  `status` int(10) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_service`
+--
+
+INSERT INTO `product_service` (`id`, `user_id`, `product_id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 30, 6, 0, '2020-11-25 22:04:30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -408,18 +465,51 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) NOT NULL,
   `photo` varchar(100) NOT NULL,
   `type` varchar(50) NOT NULL,
+  `optional` varchar(10) NOT NULL,
+  `related` int(11) NOT NULL,
   `status` int(5) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `phone`, `address`, `password`, `province_id`, `province_name`, `city_id`, `city_name`, `subdistrict_id`, `subdistrict_name`, `remember_token`, `photo`, `type`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', '085726242220', '', '$2y$08$bm5jNUdTR2JNU1JXS1NGbeJLG/fghzCS.6oT5RYRCAO35BF.acqa6', 6, 'DKI Jakarta', 151, 'Jakarta Barat', 2087, 'Cengkareng', 'TJeBHcmwfWXKsZ4NtkMCt4LmAC1DQ1XCx7tsY8n0ypIL9huLQDN9npwFhjVs', '', 'member', 1, '2020-07-16 16:49:50', '2020-08-06 11:27:26', NULL);
+INSERT INTO `users` (`id`, `name`, `phone`, `address`, `password`, `province_id`, `province_name`, `city_id`, `city_name`, `subdistrict_id`, `subdistrict_name`, `remember_token`, `photo`, `type`, `optional`, `related`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', '085726202220', 'tes', '$2y$08$bm5jNUdTR2JNU1JXS1NGbeJLG/fghzCS.6oT5RYRCAO35BF.acqa6', 6, 'DKI Jakarta', 151, 'Jakarta Barat', 2087, 'Cengkareng', 'CKZZNqobF8j13DLiUFK0inVXVWnmwaQzyVneHIJskgSE8TzTeYEZbfNamNJx', '', 'admin', '', 0, 0, '2020-07-16 16:49:50', '2020-11-26 06:29:33', NULL),
+(29, 'rizal faozi', '08575957550', 'tes', '$2y$10$pHRfubRu/8Fzp7H0DHPPjuR10TN8cljyflgh3slMdtY.IfkrN8rAC', 5, 'DI Yogyakarta', 419, 'Sleman', 5781, 'Depok', '', '', 'member', 'primary', 0, 1, '2020-11-23 09:54:46', '2020-11-24 10:00:48', NULL),
+(30, 'rizal faozi', '0857259575550', 'tesx', '$2y$10$mRNPRl23VuR6op6swpNHQurLpkLqVT1xiqVhK3XNlXUuOTndQoclO', 5, 'DI Yogyakarta', 39, 'Bantul', 538, 'Banguntapan', '', '', 'cs', '', 29, 1, '2020-11-24 02:56:52', '2020-11-24 02:56:52', NULL),
+(31, 'rizal faozi', '085726242222', 'tes', '$2y$10$.2a0gN2ukkKr2wa2jypnOePRk3Nw/fIqq7fo0QREZhGOcR8LnW7j.', 5, 'DI Yogyakarta', 419, 'Sleman', 5781, 'Depok', '', '', 'member', '', 29, 1, '2020-11-24 03:17:29', '2020-11-24 10:00:48', NULL),
+(32, 'rizal faozi', '08572624222', 'tes', '$2y$10$rZ/hj847IooJt1NGtNG13ejEhj4DIlRbhogZzC8hmHURdWVLYLXl2', 5, 'DI Yogyakarta', 419, 'Sleman', 5781, 'Depok', '', '', 'member', '', 29, 1, '2020-11-24 04:30:17', '2020-11-24 04:30:17', NULL),
+(33, 'rizal faozi', '085726242220', 'tes', '$2y$10$jZkGHrJPlexN/bbxqp8ri.ZfhuN8ZROqF0g6wuKUvBB2nlchcJ6E.', 5, 'DI Yogyakarta', 419, 'Sleman', 5781, 'Depok', '', '', 'member', 'primary', 0, 1, '2020-11-24 10:00:56', '2020-11-25 22:43:51', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `variant`
+--
+
+CREATE TABLE IF NOT EXISTS `variant` (
+`id` int(11) unsigned NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `color_bg` varchar(10) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `variant`
+--
+
+INSERT INTO `variant` (`id`, `name`, `color_bg`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Kuning', '', '2020-10-11 15:39:37', NULL, NULL),
+(2, 'Merah', '', '2020-10-11 15:39:37', NULL, NULL),
+(3, 'Putih', '', '2020-10-11 15:39:37', NULL, NULL),
+(4, 'Pink', '', '2020-10-11 15:39:37', NULL, NULL),
+(5, 'Biru', '', '2020-10-11 15:39:37', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -438,12 +528,6 @@ ALTER TABLE `category`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `color`
---
-ALTER TABLE `color`
- ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `courier`
 --
 ALTER TABLE `courier`
@@ -453,7 +537,13 @@ ALTER TABLE `courier`
 -- Indexes for table `detail_attribut_product`
 --
 ALTER TABLE `detail_attribut_product`
- ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`), ADD KEY `location_id` (`detlocproduct_id`), ADD KEY `color_id` (`color_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`), ADD KEY `location_id` (`detlocproduct_id`), ADD KEY `color_id` (`variant_id`);
+
+--
+-- Indexes for table `detail_cart`
+--
+ALTER TABLE `detail_cart`
+ ADD PRIMARY KEY (`id`), ADD KEY `inventory_id` (`inventory_id`);
 
 --
 -- Indexes for table `detail_location_product`
@@ -468,6 +558,12 @@ ALTER TABLE `detail_photo_product`
  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `followup`
+--
+ALTER TABLE `followup`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -478,6 +574,18 @@ ALTER TABLE `inventory`
 --
 ALTER TABLE `product`
  ADD PRIMARY KEY (`id`), ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `product_bundle`
+--
+ALTER TABLE `product_bundle`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_service`
+--
+ALTER TABLE `product_service`
+ ADD PRIMARY KEY (`id`), ADD KEY `user_id` (`user_id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `slider`
@@ -492,6 +600,12 @@ ALTER TABLE `users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_phone_unique` (`phone`);
 
 --
+-- Indexes for table `variant`
+--
+ALTER TABLE `variant`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -499,22 +613,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT for table `color`
---
-ALTER TABLE `color`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `courier`
 --
 ALTER TABLE `courier`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
+-- AUTO_INCREMENT for table `detail_cart`
+--
+ALTER TABLE `detail_cart`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `detail_photo_product`
 --
 ALTER TABLE `detail_photo_product`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `followup`
+--
+ALTER TABLE `followup`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
@@ -526,6 +645,16 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `product`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
+-- AUTO_INCREMENT for table `product_bundle`
+--
+ALTER TABLE `product_bundle`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_service`
+--
+ALTER TABLE `product_service`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
@@ -534,7 +663,12 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `variant`
+--
+ALTER TABLE `variant`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -543,9 +677,15 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- Constraints for table `detail_attribut_product`
 --
 ALTER TABLE `detail_attribut_product`
-ADD CONSTRAINT `detail_attribut_product_color_id_foreign` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `detail_attribut_product_detlocproduct_id_foreign` FOREIGN KEY (`detlocproduct_id`) REFERENCES `detail_location_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `detail_attribut_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `detail_attribut_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `detail_attribut_product_variant_id_foreign` FOREIGN KEY (`variant_id`) REFERENCES `variant` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_cart`
+--
+ALTER TABLE `detail_cart`
+ADD CONSTRAINT `detail_cart_inventory_id_foreign` FOREIGN KEY (`inventory_id`) REFERENCES `inventory` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detail_location_product`
@@ -571,6 +711,13 @@ ADD CONSTRAINT ` inventory_courier_id_foreign` FOREIGN KEY (`courier_id`) REFERE
 --
 ALTER TABLE `product`
 ADD CONSTRAINT `product_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_service`
+--
+ALTER TABLE `product_service`
+ADD CONSTRAINT `product_service_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `product_service_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

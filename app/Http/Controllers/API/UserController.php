@@ -96,15 +96,19 @@ class UserController extends AppBaseController
 
         $fields = [
           
-           
+            'name'  => 'Name',
+            'phone'  => 'Phone',
+            'status'  => 'Status',
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'name'  => 'Name',
+           
 
         ];
 
         $validator =  Validator::make($request->all(), [
             'name' => 'required|max:8|min:4|unique:users',
+            'phone' => 'required',
+            'status' => 'required',
             'password' => 'required|max:8|min:4|confirmed',
             'password_confirmation' => 'required|max:8|min:4|same:password',
         ]);
@@ -119,12 +123,20 @@ class UserController extends AppBaseController
                 $err['messages']['name'] = $errors->first('name');
             }
 
+             if($errors->has('phone')){
+                $err['messages']['phone'] = $errors->first('phone');
+            }
+
             if($errors->has('password')){
                 $err['messages']['password'] = $errors->first('password');
             }
 
             if($errors->has('password_confirmation')){
                 $err['messages']['password_confirmation'] = $errors->first('password_confirmation');
+            }
+
+            if($errors->has('status')){
+                $err['messages']['status'] = $errors->first('status');
             }
             
             return response()->json($err);
@@ -134,6 +146,8 @@ class UserController extends AppBaseController
         $data = [
            
             'name' => trim($request['name']),
+            'type' => 'admin',
+            'phone' => trim($request['phone']),
             'password' => Hash::make(trim($request['password'])),
             'status' => ($request['status'] == 1) ? 1 : 0,
         ];  
@@ -157,7 +171,7 @@ class UserController extends AppBaseController
 
         $results['id'] = $user->id;
         $results['name'] = $user['name'];
-    
+         $results['phone'] = $user['phone'];
         $results['status'] = $user['status'];
        
         return response()->json($results);
@@ -169,16 +183,18 @@ class UserController extends AppBaseController
         $err = array();
         $fields = [
            
-        
+            'name'  => 'Name',
+            'phone'  => 'Phone', 
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'name'  => 'Name',
+            
 
         ];
 
         $validator =  Validator::make($request->all(), [
             
             'name' => 'required|max:8|min:4',
+            'phone' => 'required',
             'password' => 'nullable|max:8|min:4|confirmed',
             'password_confirmation' => 'nullable|max:8|min:4|same:password',
         ]);
@@ -193,7 +209,9 @@ class UserController extends AppBaseController
                 $err['messages']['name'] = $errors->first('name');
             }
 
-          
+             if($errors->has('phone')){
+                $err['messages']['phone'] = $errors->first('phone');
+            }
 
             if($errors->has('password') && !empty($request->has('password')) ){
                 $err['messages']['password'] = $errors->first('password');
@@ -212,9 +230,11 @@ class UserController extends AppBaseController
         }
 
         $data = [
-      
+         
             'name' => trim($request['name']),
-            'status' => ($request['status'] == 1) ? 'Y' : 'N',
+            'phone' => trim($request['phone']),
+            'type' => 'admin',
+            'status' => ($request['status'] == 1) ? 1 : 0,
         ];  
 
         $data = array_merge($pass,$data);

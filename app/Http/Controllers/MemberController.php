@@ -32,11 +32,10 @@ class MemberController extends AppBaseController
     public function index(Request $request)
     {
          $page = "Member";
-        $this->memberRepository->pushCriteria(new RequestCriteria($request));
-        $members = $this->memberRepository->all();
+     
     
         return view('admin.members')
-            ->with(['members'=> $members,'page'=>$page]);
+            ->with(['page'=>$page]);
     }
 
     

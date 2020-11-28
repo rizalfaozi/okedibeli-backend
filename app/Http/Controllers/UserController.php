@@ -36,11 +36,9 @@ class UserController extends AppBaseController
     public function index(Request $request)
     {
         $page = "Admins";
-        $this->adminRepository->pushCriteria(new RequestCriteria($request));
-        $admin = $this->adminRepository->all();
-    
+       
         return view('admin.admins')
-            ->with(['admin'=> $admin,'page'=>$page]);
+            ->with(['page'=>$page]);
     }
 
 

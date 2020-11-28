@@ -13,47 +13,43 @@
             <div class="panel-body">
                 <form role="form" method="post" class="form-horizontal" @submit.prevent="postData">
 
-                   <div class="form-group" :class="results.messages.office_name ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Office Name</label>
-                        <div class="col-md-8">
-                                                      
-                               
-                                <input type="text" v-model="office_name" class="form-control" placeholder="Office Name">
-                          
-                            <label v-if="results.messages.office_name !== ''" for class="control-label">{{ results.messages.office_name }}</label>
-                        </div>
-                    </div>
+                   
 
-                    <div class="form-group" :class="results.messages.email ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Email</label>
-                        <div class="col-md-8">
-                                                     
-                               
-                                <input type="email" v-model="email" class="form-control" placeholder="Email">
-                          
-                            <label v-if="results.messages.email !== ''" for class="control-label">{{ results.messages.email }}</label>
-                        </div>
-                    </div>
-                    <div class="form-group" :class="results.messages.username ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Username</label>
+                    <div class="form-group" :class="results.messages.name ? 'has-error' : ''">
+                        <label class="col-md-2 control-label">Name</label>
                         <div class="col-md-8">
                                                       
                               
-                                <input type="username" v-model="username" class="form-control" placeholder="username">
+                                <input type="text" v-model="name" class="form-control" placeholder="Name">
                            
-                            <label v-if="results.messages.username !== ''" for class="control-label">{{ results.messages.username }}</label>
+                            <label v-if="results.messages.name !== ''" for class="control-label">{{ results.messages.name }}</label>
                         </div>
                     </div>
-                    <div class="form-group" :class="results.messages.fullname ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Fullname</label>
+
+                     <div class="form-group" :class="results.messages.phone ? 'has-error' : ''">
+                        <label class="col-md-2 control-label">Phone</label>
                         <div class="col-md-8">
-                                                     
-                               
-                                <input type="text" v-model="fullname" class="form-control" placeholder="Fullname">
-                            
-                            <label v-if="results.messages.fullname !== ''" for class="control-label">{{ results.messages.fullname }}</label>
+                                                      
+                              
+                                <input type="number" v-model="phone" class="form-control" placeholder="Phone">
+                           
+                            <label v-if="results.messages.name !== ''" for class="control-label">{{ results.messages.name }}</label>
                         </div>
                     </div>
+
+                    <div class="form-group" :class="results.messages.type ? 'has-error' : ''">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-8">
+                                                      
+                              
+                                <input type="text" v-model="type" class="form-control" placeholder="Type">
+                           
+                            <label v-if="results.messages.type !== ''" for class="control-label">{{ results.messages.type }}</label>
+                        </div>
+                    </div>
+
+
+                   
 
                     <div class="form-group" :class="results.messages.address ? 'has-error' : ''">
                         <label class="col-md-2 control-label">Address</label>
@@ -67,50 +63,7 @@
                     </div>
 
 
-                   <div class="form-group" :class="results.messages.domain ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Domain</label>
-                        <div class="col-md-8">
-                                                      
-                               
-                                <input type="text" v-model="domain" class="form-control" placeholder="Domain">
-                            
-                            <label v-if="results.messages.domain !== ''" for class="control-label">{{ results.messages.domain }}</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" :class="results.messages.packet ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Packet</label>
-                        <div class="col-md-8">
-                                                     
-                               
-                                <input type="text" v-model="packet" class="form-control" placeholder="Packet">
-                           
-                            <label v-if="results.messages.packet !== ''" for class="control-label">{{ results.messages.packet }}</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" :class="results.messages.date_start ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Date Start</label>
-                        <div class="col-md-8">
-
-
-                            <datetime type="datetime" v-model="date_start" value-zone="Asia/Jakarta" format="yyyy-MM-dd HH:mm:ss"></datetime>
-                            
-                           
-                            <label v-if="results.messages.date_start !== ''" for class="control-label">{{ results.messages.date_start }}</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" :class="results.messages.date_end ? 'has-error' : ''">
-                        <label class="col-md-2 control-label">Date End</label>
-                        <div class="col-md-8">
-                                                      
-                               
-                            <datetime type="datetime" v-model="date_end" value-zone="Asia/Jakarta" format="yyyy-MM-dd HH:mm:ss"></datetime>
-
-                            <label v-if="results.messages.date_end !== ''" for class="control-label">{{ results.messages.date_end }}</label>
-                        </div>
-                    </div>
+                   
 
                     <div class="form-group" :class="results.messages.password ? 'has-error' : ''">
                         <label class="col-md-2 control-label">Password</label>
@@ -140,11 +93,11 @@
                                 <div class="input-group">
 
                                     <label class="container-checkbox" style="top:7px;">
-                                      <input type="checkbox" :checked="actived" v-model="actived">
+                                      <input type="checkbox" :checked="status" v-model="status">
                                       <span class="checkmark-checkbox"></span>
                                     </label>
 
-                                    <span class="fa-stack fa-lg" v-if="actived === true" style="margin-left:30px; top:-9px;"><i class="fa fa-circle-o fa-stack-2x text-success"></i><i class="fa fa-check fa-stack-1x fa-inverse text-success"></i></span>
+                                    <span class="fa-stack fa-lg" v-if="status === true" style="margin-left:30px; top:-9px;"><i class="fa fa-circle-o fa-stack-2x text-success"></i><i class="fa fa-check fa-stack-1x fa-inverse text-success"></i></span>
                                     <span style="margin-left:30px; top:-9px;" class="fa-stack fa-lg" v-else ><i class="fa fa-times-circle-o fa-stack-2x text-danger"></i></span>
                                 </div>
                         </div>
@@ -190,33 +143,27 @@
             return {
                 results: {
                     messages: {
-                        office_name:"",
-                        email:"",
-                        fullname:"",
-                        username:"",
+                       
+                        name:"",
+                        phone:"",
+                        type:"",
                         address:"",
-                        domain:"",
-                        packet:"",
-                        date_start:"",
-                        date_end:"",
+                        status:"",
                         password:"",
                         password_confirmation:""
                     },
                 },
 
                 id:"",
-                office_name:"",
-                email:"",
-                fullname:"",
-                username:"",
+                name:"",
+                phone:"",
+                type:"",
+             
                 address:"",
-                domain:"",
-                packet:"",
-                date_start:"",
-                date_end:"",
+               
                 password:"",
                 password_confirmation:"",
-                actived:false,
+                status:false,
                 
                 btnLoading:false,
                 btnCancel:true,
@@ -228,14 +175,8 @@
             }
         },
         mounted() {
-            new Switchery(this.$refs.wan);
-            this.editData();
-            console.log("query");
-            if(this.$route.params.id){
-                console.log("aaaaa");
-            }else{
-                console.log("bbbbb");
-            }
+          
+            
         },
         computed: {
             base_url() {
@@ -244,59 +185,7 @@
         },
         components: {},
         methods: {
-            editData(){
-                this.loading = true; 
-                console.log("pppppppppp");
-                this.userID = this.$route.params.id;
-                console.log(this.userID);
-                if(this.$route.params.id){
-                    console.log("masuk");
-                    axios.get(BASE_URL+'/api/members/edituser/'+this.userID)
-                    .then((response) => {
-                        if(response.data.id){
-                            this.edit = true;
-                            this.loading = false;
-                            this.id=response.data.id;
-                            this.office_name=response.data.office_name;
-                            this.email=response.data.email;
-                            this.fullname=response.data.fullname;
-                            this.username=response.data.username;
-                            this.address=response.data.address;
-                            this.domain=response.data.domain;
-                            this.packet=response.data.packet;
-                            this.date_start=response.data.date_start;
-                            this.date_end=response.data.date_end;
-                            this.status=response.data.status;
-                            console.log(response.data.status);
-                            if(response.data.status === "Y"){
-                                console.log("actived");
-                                this.actived=true;
-                            }
-                        }else{
-                            this.loading = false; 
-                            this.$swal({
-                                title: "Data Tidak Ditemukan",
-                                icon: "warning"
-                            }).then((result) => {
-                                if (result) {
-                                    this.$router.push({path:'/'})
-                                }
-                            });  
-                        }
-                    
-                    }).catch((error) => {
-                        console.log(error);
-                        this.loading = false;
-                    });
-                }else{
-                    this.loading = false; 
-                    return false;
-                }
-            },
-
-            editPostData(){
-                console.log("editPostUser");
-            },
+            
 
             postData() {
                 console.log("postUser");
@@ -306,27 +195,21 @@
 
                 let urlBase="";
                 const postData = {
-                        office_name:this.office_name,
-                        email:this.email,
-                        fullname:this.fullname,
-                        username:this.username,
+                        name:this.name,
+                        phone:this.phone,
+                        type:this.type,
+                      
                         address:this.address,
-                        domain:this.domain,
-                        packet:this.packet,
-                        date_start:this.date_start,
-                        date_end:this.date_end,
+                      
                         password:this.password,
                         password_confirmation:this.password_confirmation,
-                        status:this.actived
+                        status:this.status
                     };
 
 
-                if(this.edit){
-                    console.log("update");
-                    urlBase = axios.put(BASE_URL+'/api/members/update/'+this.userID, postData);
-                }else{
-                    urlBase = axios.post(BASE_URL+'/api/members/post', postData);
-                }
+                
+                urlBase = axios.post(BASE_URL+'/api/members/post', postData);
+                
                 
                 urlBase
                 .then((response) => {

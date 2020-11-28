@@ -8,11 +8,20 @@
               {{ data.status }}
             </td>
 		    <td data-title="Option" class="text-center">
-                <router-link :to="{path: '/edit/'+data.id}">
-                    <button class="btn btn-default mr10 mt5 mb5"><i class="fa fa-pencil"></i> Edit</button>
-                </router-link>
-                <button class="btn btn-primary mr10 mt5 mb5" @click.prevent="someMethod(data)"><i class="fa fa-eye"></i> View</button>
-                <button class="btn btn-danger mr10 mt5 mb5" @click.prevent="someDelete(data)"><i class="fa fa-times"></i> Delete</button>
+
+                <div class="btn-group" >
+                     <button type="button" class="pull-left btn  btn-danger" @click.prevent="someMethod(data)"><i class="fa fa-eye"></i></button>
+
+                    <router-link :to="{path: '/edit/'+data.id}" class="pull-left btn btn-danger">
+                         <i class="fa fa-pencil"></i>
+                    </router-link>
+  
+                    <button type="button" class="pull-left btn btn-danger" @click.prevent="someDelete(data)"><i class="fa fa-trash"></i></button>
+                </div>
+
+
+
+               
 		    </td>
     	</tr>	
 </template>

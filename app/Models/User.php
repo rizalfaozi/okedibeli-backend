@@ -37,6 +37,8 @@ class User extends Model implements AuthenticatableContract
         'subdistrict_id',
         'subdistrict_name',
         'photo',
+        'optional',
+        'related',
         'type',
         'status'
     ];
@@ -53,6 +55,8 @@ class User extends Model implements AuthenticatableContract
         'address'=>'text',
         'province_id'=>'integer',
         'province_name'=>'string',
+        'optional'=>'string',
+        'related'=>'integer',
         'city_id'=>'integer',
         'city_name'=>'string',
         'subdistrict_id'=>'integer',
@@ -68,7 +72,7 @@ class User extends Model implements AuthenticatableContract
      * @var array
      */
     public static $rules = [
-        'username' => 'required'
+        'name' => 'required'
     ];
 
     

@@ -92,20 +92,22 @@ class MemberController extends AppBaseController
 
     }
 
-    public function postUser(CreateUserRequest $request)
+    public function post(CreateUserRequest $request)
     {
 
         $fields = [
-          
-           
+            'name'  => 'Name',
+            'phone'  => 'Phone',
+            'address' =>'Address',
+            'type' =>'Type',
             'password'  => 'Password',
             'password_confirmation'  => 'Password Confirmation',
-            'name'  => 'Name',
+            
 
         ];
 
         $validator =  Validator::make($request->all(), [
-            'name' => 'required|max:8|min:4|unique:users',
+            'name' => 'required',
             'password' => 'required|max:8|min:4|confirmed',
             'password_confirmation' => 'required|max:8|min:4|same:password',
         ]);
@@ -118,6 +120,22 @@ class MemberController extends AppBaseController
           
             if($errors->has('name')){
                 $err['messages']['name'] = $errors->first('name');
+            }
+
+             if($errors->has('phone')){
+                $err['messages']['phone'] = $errors->first('phone');
+            }
+
+             if($errors->has('type')){
+                $err['messages']['type'] = $errors->first('type');
+            }
+
+            if($errors->has('address')){
+                $err['messages']['address'] = $errors->first('address');
+            }
+
+            if($errors->has('status')){
+                $err['messages']['status'] = $errors->first('status');
             }
 
             if($errors->has('password')){
@@ -135,6 +153,9 @@ class MemberController extends AppBaseController
         $data = [
            
             'name' => trim($request['name']),
+            'phone' => trim($request['phone']),
+            'type' => trim($request['type']),
+            'address' => trim($request['address']),
             'password' => Hash::make(trim($request['password'])),
             'status' => ($request['status'] == 1) ? 1 : 0,
         ];  

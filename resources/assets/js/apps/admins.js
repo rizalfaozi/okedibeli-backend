@@ -13,6 +13,7 @@ const store = new Vuex.Store({
 });
 
 const router = new VueRouter({
+  
     routes: [
         {
             name: '/',

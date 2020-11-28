@@ -66,7 +66,7 @@ class LoginController extends Controller
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('name', $request->username)->first();
         $field = 'username';
         if ($user == null) {
             return  redirect()->back()

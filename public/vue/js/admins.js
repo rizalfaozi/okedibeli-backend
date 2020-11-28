@@ -2021,37 +2021,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
-  name: 'users'
+  name: 'admin'
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       results: {
         messages: {
-          email: "",
-          fullname: "",
-          username: "",
+          name: "",
+          phone: "",
           password: "",
-          password_confirmation: ""
+          password_confirmation: "",
+          status: ""
         }
       },
       id: "",
-      email: "",
-      fullname: "",
-      username: "",
+      name: "",
+      phone: "",
       password: "",
       password_confirmation: "",
+      status: "",
       actived: false,
       btnLoading: false,
       btnCancel: true,
@@ -2061,17 +2052,7 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
       userID: ""
     };
   },
-  mounted: function mounted() {
-    new Switchery(this.$refs.wan);
-    this.editUser();
-    console.log("query");
-
-    if (this.$route.params.id) {
-      console.log("aaaaa");
-    } else {
-      console.log("bbbbb");
-    }
-  },
+  mounted: function mounted() {},
   computed: {
     base_url: function base_url() {
       return BASE_URL;
@@ -2079,105 +2060,45 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
   },
   components: {},
   methods: {
-    editUser: function editUser() {
+    postUser: function postUser() {
       var _this = this;
 
-      this.loading = true;
-      console.log("pppppppppp");
-      this.userID = this.$route.params.id;
-      console.log(this.userID);
-
-      if (this.$route.params.id) {
-        console.log("masuk");
-        axios.get(BASE_URL + '/api/users/edituser/' + this.userID).then(function (response) {
-          if (response.data.id) {
-            _this.edit = true;
-            _this.loading = false;
-            _this.id = response.data.id;
-            _this.email = response.data.email;
-            _this.fullname = response.data.fullname;
-            _this.username = response.data.username;
-            _this.status = response.data.status;
-            console.log(response.data.status);
-
-            if (response.data.status === "Y") {
-              console.log("actived");
-              _this.actived = true;
-            }
-          } else {
-            _this.loading = false;
-
-            _this.$swal({
-              title: "Data Tidak Ditemukan",
-              icon: "warning"
-            }).then(function (result) {
-              if (result) {
-                _this.$router.push({
-                  path: '/'
-                });
-              }
-            });
-          }
-        })["catch"](function (error) {
-          console.log(error);
-          _this.loading = false;
-        });
-      } else {
-        this.loading = false;
-        return false;
-      }
-    },
-    editPostUser: function editPostUser() {
-      console.log("editPostUser");
-    },
-    postUser: function postUser() {
-      var _this2 = this;
-
-      console.log("postUser");
       this.btnLoading = true;
       this.btnCancel = false;
       this.btnSubmit = false;
       var urlBase = "";
       var postData = {
-        email: this.email,
-        fullname: this.fullname,
-        username: this.username,
+        name: this.name,
+        phone: this.phone,
         password: this.password,
         password_confirmation: this.password_confirmation,
-        actived: this.actived
+        status: this.status
       };
-
-      if (this.edit) {
-        console.log("update");
-        urlBase = axios.put(BASE_URL + '/api/users/updateuser/' + this.userID, postData);
-      } else {
-        urlBase = axios.post(BASE_URL + '/api/users/postuser', postData);
-      }
-
+      urlBase = axios.post(BASE_URL + '/api/users/postuser', postData);
       urlBase.then(function (response) {
         if (response.data.id) {
           console.log("save");
 
-          _this2.$swal({
-            title: "Berhasi Di Simpan",
+          _this.$swal({
+            title: "Berhasil Di Simpan",
             icon: "success"
           }).then(function (result) {
             if (result) {
-              _this2.$router.push({
+              _this.$router.push({
                 path: '/'
               });
             }
           });
         } else {
-          _this2.results = response.data;
+          _this.results = response.data;
         }
 
-        _this2.btnLoading = false;
-        _this2.btnCancel = true;
-        _this2.btnSubmit = true;
+        _this.btnLoading = false;
+        _this.btnCancel = true;
+        _this.btnSubmit = true;
       })["catch"](function (error) {
         console.log(error);
-        _this2.loading = false;
+        _this.loading = false;
       });
     }
   }
@@ -2306,39 +2227,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
-  name: 'users'
+  name: 'admin'
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       results: {
         messages: {
-          email: "",
-          fullname: "",
-          username: "",
+          name: "",
+          phone: "",
           password: "",
-          password_confirmation: ""
+          password_confirmation: "",
+          status: ""
         }
       },
       id: "",
-      email: "",
-      fullname: "",
-      username: "",
+      name: "",
+      phone: "",
       password: "",
       password_confirmation: "",
       actived: false,
+      status: "",
       btnLoading: false,
       btnCancel: true,
       btnSubmit: true,
@@ -2348,15 +2259,7 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
     };
   },
   mounted: function mounted() {
-    new Switchery(this.$refs.wan);
-    this.editUser();
-    console.log("query");
-
-    if (this.$route.params.id) {
-      console.log("aaaaa");
-    } else {
-      console.log("bbbbb");
-    }
+    this.editData();
   },
   computed: {
     base_url: function base_url() {
@@ -2365,29 +2268,24 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
   },
   components: {},
   methods: {
-    editUser: function editUser() {
+    editData: function editData() {
       var _this = this;
 
       this.loading = true;
-      console.log("pppppppppp");
       this.userID = this.$route.params.id;
-      console.log(this.userID);
 
       if (this.$route.params.id) {
-        console.log("masuk");
         axios.get(BASE_URL + '/api/users/edituser/' + this.userID).then(function (response) {
           if (response.data.id) {
             _this.edit = true;
             _this.loading = false;
             _this.id = response.data.id;
-            _this.email = response.data.email;
-            _this.fullname = response.data.fullname;
-            _this.username = response.data.username;
+            _this.name = response.data.name;
+            _this.phone = response.data.phone;
             _this.status = response.data.status;
             console.log(response.data.status);
 
-            if (response.data.status === "Y") {
-              console.log("actived");
+            if (response.data.status === 1) {
               _this.actived = true;
             }
           } else {
@@ -2413,39 +2311,27 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
         return false;
       }
     },
-    editPostUser: function editPostUser() {
-      console.log("editPostUser");
-    },
     postUser: function postUser() {
       var _this2 = this;
 
-      console.log("postUser");
       this.btnLoading = true;
       this.btnCancel = false;
       this.btnSubmit = false;
       var urlBase = "";
       var postData = {
-        email: this.email,
-        fullname: this.fullname,
-        username: this.username,
+        name: this.name,
+        phone: this.phone,
         password: this.password,
         password_confirmation: this.password_confirmation,
-        actived: this.actived
+        status: this.status
       };
-
-      if (this.edit) {
-        console.log("update");
-        urlBase = axios.put(BASE_URL + '/api/users/updateuser/' + this.userID, postData);
-      } else {
-        urlBase = axios.post(BASE_URL + '/api/users/postuser', postData);
-      }
-
+      urlBase = axios.put(BASE_URL + '/api/users/updateuser/' + this.userID, postData);
       urlBase.then(function (response) {
         if (response.data.id) {
           console.log("save");
 
           _this2.$swal({
-            title: "Berhasi Di Simpan",
+            title: "Berhasil Di Simpan",
             icon: "success"
           }).then(function (result) {
             if (result) {
@@ -2655,6 +2541,15 @@ localforage__WEBPACK_IMPORTED_MODULE_0___default.a.config({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -25968,11 +25863,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.email ? "has-error" : ""
+                      class: _vm.results.messages.name ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Email")
+                        _vm._v("Username")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -25984,32 +25879,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.email,
-                                expression: "email"
+                                value: _vm.name,
+                                expression: "name"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "email", placeholder: "Email" },
-                            domProps: { value: _vm.email },
+                            attrs: { type: "name", placeholder: "username" },
+                            domProps: { value: _vm.name },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.email = $event.target.value
+                                _vm.name = $event.target.value
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _vm.results.messages.email !== ""
+                        _vm.results.messages.name !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.email))]
+                              [_vm._v(_vm._s(_vm.results.messages.name))]
                             )
                           : _vm._e()
                       ])
@@ -26020,11 +25915,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.fullname ? "has-error" : ""
+                      class: _vm.results.messages.phone ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Fullname")
+                        _vm._v("Phone")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -26036,87 +25931,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.fullname,
-                                expression: "fullname"
+                                value: _vm.phone,
+                                expression: "phone"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "text", placeholder: "Name" },
-                            domProps: { value: _vm.fullname },
+                            attrs: { type: "number", placeholder: "Phone" },
+                            domProps: { value: _vm.phone },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.fullname = $event.target.value
+                                _vm.phone = $event.target.value
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _vm.results.messages.fullname !== ""
+                        _vm.results.messages.phone !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.fullname))]
-                            )
-                          : _vm._e()
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.username ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Username")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-8" }, [
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.username,
-                                expression: "username"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "username",
-                              placeholder: "username"
-                            },
-                            domProps: { value: _vm.username },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.username = $event.target.value
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _vm.results.messages.username !== ""
-                          ? _c(
-                              "label",
-                              {
-                                staticClass: "control-label",
-                                attrs: { for: "" }
-                              },
-                              [_vm._v(_vm._s(_vm.results.messages.username))]
+                              [_vm._v(_vm._s(_vm.results.messages.phone))]
                             )
                           : _vm._e()
                       ])
@@ -26136,7 +25976,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(4),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -26194,7 +26034,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(5),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -26262,20 +26102,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.actived,
-                                  expression: "actived"
+                                  value: _vm.status,
+                                  expression: "status"
                                 }
                               ],
                               attrs: { type: "checkbox" },
                               domProps: {
                                 checked: _vm.actived,
-                                checked: Array.isArray(_vm.actived)
-                                  ? _vm._i(_vm.actived, null) > -1
-                                  : _vm.actived
+                                checked: Array.isArray(_vm.status)
+                                  ? _vm._i(_vm.status, null) > -1
+                                  : _vm.status
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.actived,
+                                  var $$a = _vm.status,
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
@@ -26283,15 +26123,15 @@ var render = function() {
                                       $$i = _vm._i($$a, $$v)
                                     if ($$el.checked) {
                                       $$i < 0 &&
-                                        (_vm.actived = $$a.concat([$$v]))
+                                        (_vm.status = $$a.concat([$$v]))
                                     } else {
                                       $$i > -1 &&
-                                        (_vm.actived = $$a
+                                        (_vm.status = $$a
                                           .slice(0, $$i)
                                           .concat($$a.slice($$i + 1)))
                                     }
                                   } else {
-                                    _vm.actived = $$c
+                                    _vm.status = $$c
                                   }
                                 }
                               }
@@ -26301,7 +26141,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm.actived === true
+                        _vm.status === true
                           ? _c(
                               "span",
                               {
@@ -26430,23 +26270,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-addon" }, [
-      _c("i", { staticClass: "fa fa-envelope-o" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-addon" }, [
-      _c("i", { staticClass: "fa fa-users" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-addon" }, [
       _c("i", { staticClass: "fa fa-user" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "fa fa-phone" })
     ])
   },
   function() {
@@ -26524,11 +26356,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.email ? "has-error" : ""
+                      class: _vm.results.messages.name ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Email")
+                        _vm._v("Name")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -26540,32 +26372,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.email,
-                                expression: "email"
+                                value: _vm.name,
+                                expression: "name"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "email", placeholder: "Email" },
-                            domProps: { value: _vm.email },
+                            attrs: { type: "text", placeholder: "Name" },
+                            domProps: { value: _vm.name },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.email = $event.target.value
+                                _vm.name = $event.target.value
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _vm.results.messages.email !== ""
+                        _vm.results.messages.name !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.email))]
+                              [_vm._v(_vm._s(_vm.results.messages.name))]
                             )
                           : _vm._e()
                       ])
@@ -26576,11 +26408,11 @@ var render = function() {
                     "div",
                     {
                       staticClass: "form-group",
-                      class: _vm.results.messages.fullname ? "has-error" : ""
+                      class: _vm.results.messages.phone ? "has-error" : ""
                     },
                     [
                       _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Fullname")
+                        _vm._v("Phone")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
@@ -26592,87 +26424,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.fullname,
-                                expression: "fullname"
+                                value: _vm.phone,
+                                expression: "phone"
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "text", placeholder: "Name" },
-                            domProps: { value: _vm.fullname },
+                            attrs: { type: "number", placeholder: "Phone" },
+                            domProps: { value: _vm.phone },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.fullname = $event.target.value
+                                _vm.phone = $event.target.value
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _vm.results.messages.fullname !== ""
+                        _vm.results.messages.phone !== ""
                           ? _c(
                               "label",
                               {
                                 staticClass: "control-label",
                                 attrs: { for: "" }
                               },
-                              [_vm._v(_vm._s(_vm.results.messages.fullname))]
-                            )
-                          : _vm._e()
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: _vm.results.messages.username ? "has-error" : ""
-                    },
-                    [
-                      _c("label", { staticClass: "col-md-2 control-label" }, [
-                        _vm._v("Username")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-8" }, [
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.username,
-                                expression: "username"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "username",
-                              placeholder: "username"
-                            },
-                            domProps: { value: _vm.username },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.username = $event.target.value
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _vm.results.messages.username !== ""
-                          ? _c(
-                              "label",
-                              {
-                                staticClass: "control-label",
-                                attrs: { for: "" }
-                              },
-                              [_vm._v(_vm._s(_vm.results.messages.username))]
+                              [_vm._v(_vm._s(_vm.results.messages.phone))]
                             )
                           : _vm._e()
                       ])
@@ -26692,7 +26469,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(4),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -26750,7 +26527,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-8" }, [
                         _c("div", { staticClass: "input-group" }, [
-                          _vm._m(5),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -26818,20 +26595,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.actived,
-                                  expression: "actived"
+                                  value: _vm.status,
+                                  expression: "status"
                                 }
                               ],
                               attrs: { type: "checkbox" },
                               domProps: {
                                 checked: _vm.actived,
-                                checked: Array.isArray(_vm.actived)
-                                  ? _vm._i(_vm.actived, null) > -1
-                                  : _vm.actived
+                                checked: Array.isArray(_vm.status)
+                                  ? _vm._i(_vm.status, null) > -1
+                                  : _vm.status
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.actived,
+                                  var $$a = _vm.status,
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
@@ -26839,15 +26616,15 @@ var render = function() {
                                       $$i = _vm._i($$a, $$v)
                                     if ($$el.checked) {
                                       $$i < 0 &&
-                                        (_vm.actived = $$a.concat([$$v]))
+                                        (_vm.status = $$a.concat([$$v]))
                                     } else {
                                       $$i > -1 &&
-                                        (_vm.actived = $$a
+                                        (_vm.status = $$a
                                           .slice(0, $$i)
                                           .concat($$a.slice($$i + 1)))
                                     }
                                   } else {
-                                    _vm.actived = $$c
+                                    _vm.status = $$c
                                   }
                                 }
                               }
@@ -26857,7 +26634,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm.actived === true
+                        _vm.status === true
                           ? _c(
                               "span",
                               {
@@ -26986,14 +26763,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-addon" }, [
-      _c("i", { staticClass: "fa fa-envelope-o" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-addon" }, [
       _c("i", { staticClass: "fa fa-users" })
     ])
   },
@@ -27002,7 +26771,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "input-group-addon" }, [
-      _c("i", { staticClass: "fa fa-user" })
+      _c("i", { staticClass: "fa fa-phone" })
     ])
   },
   function() {
@@ -27247,42 +27016,52 @@ var render = function() {
       "td",
       { staticClass: "text-center", attrs: { "data-title": "Option" } },
       [
-        _c("router-link", { attrs: { to: { path: "/edit/" + _vm.data.id } } }, [
-          _c("button", { staticClass: "btn btn-default mr10 mt5 mb5" }, [
-            _c("i", { staticClass: "fa fa-pencil" }),
-            _vm._v(" Edit")
-          ])
-        ]),
-        _vm._v(" "),
         _c(
-          "button",
-          {
-            staticClass: "btn btn-primary mr10 mt5 mb5",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.someMethod(_vm.data)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-eye" }), _vm._v(" View")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger mr10 mt5 mb5",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.someDelete(_vm.data)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-times" }), _vm._v(" Delete")]
+          "div",
+          { staticClass: "btn-group" },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "pull-left btn  btn-danger",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.someMethod(_vm.data)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-eye" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "pull-left btn btn-danger",
+                attrs: { to: { path: "/edit/" + _vm.data.id } }
+              },
+              [_c("i", { staticClass: "fa fa-pencil" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "pull-left btn btn-danger",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.someDelete(_vm.data)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-trash" })]
+            )
+          ],
+          1
         )
-      ],
-      1
+      ]
     )
   ])
 }
